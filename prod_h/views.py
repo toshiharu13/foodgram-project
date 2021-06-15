@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 
-from .models import Recipe, User
+#from .models import Recipe, User
+from prod_h.models import Recipe, User
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
 
