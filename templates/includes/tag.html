@@ -1,0 +1,9 @@
+{% for tag in post.teg.all %}
+    {% if tag.name == 'breakfast' %}
+        <li class="card__item"><span class="badge badge_style_orange">Завтрак</span></li>
+    {% elif tag.name == 'lunch' %}
+        <li class="card__item"><span class="badge badge_style_green">Обед</span></li>
+    {% elif tag.name == 'dinner' %}
+        <li class="card__item"><span class="badge badge_style_purple">Ужин</span></li>
+    {% endif %}
+{% endfor %}
