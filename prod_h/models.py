@@ -4,11 +4,19 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class ListOfIngridients(models.Model):
-    name = models.CharField(max_length=50)
-    units_of_measurement = models.CharField(max_length=15)
+    # Таблица компонентов
+    name = models.CharField(max_length=50,
+                            unique=True,
+                            verbose_name='Название ингредиента',
+                            help_text='Название ингредиента, максимум 50 символов',
+                            )
+    units_of_measurement = models.CharField(max_length=20,
+                                            verbose_name='Единица измерения',
+                                            help_text='Единица измерения, максимум 20 симоволов',
+                                            )
 
     def __str__(self):
-        return self.name
+        return f'{self.name} ({self.units_of_measurement})'
 
 class Teg(models.Model):
     name = models.CharField(max_length=20)
@@ -48,6 +56,19 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.text[:15]
+
+class Favorite(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='favorites',
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='favorite',
+    )
+
 
 
 
