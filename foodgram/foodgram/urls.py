@@ -1,4 +1,4 @@
-"""foodgram URL Configuration
+"""foodgram-project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,8 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.contrib.flatpages.views import flatpage
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    #регистрация и авторизация
+    path('auth/', include('users.urls')),
+
+    #если нужного шаблона для /auth не нашлось в файле users.urls —
+    #ищем совпадения в файле django.contrib.auth.urls
+    path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path('', include('prod_h.urls')),
+    path('about-author/', include('django.contrib.flatpages.urls')),
+    path('about-tech/', include('django.contrib.flatpages.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
