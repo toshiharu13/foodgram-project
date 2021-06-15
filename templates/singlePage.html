@@ -46,8 +46,8 @@
                         <p class=" single-card__section-item">Сахар 2 сл.л.</p>
                         <p class=" single-card__section-item">Яйцо - 2 шт.</p>
                         <p class=" single-card__section-item">Молоко - 200 мл.</p>-->
-                        {%for ingr in recipe.ingridients.all%}
-                          <p class=" single-card__section-item">{{ingr}} - {{ingr.counts}} {{ingr.units_of_measurement.get.units_of_measurement}}</p>
+                        {%for ingr in recipe.recipe_ingredients.all%}
+                          <p class=" single-card__section-item">{{ingr.name}} - {{ingr.counts}}</p>
                         {%endfor%}
                     </div>
                 </div>
@@ -58,15 +58,15 @@
             </div>
         </div>
     </main>
-<script src="./js/components/Purchases.js"></script>
-<script src="./js/components/Favorites.js"></script>
-<script src="./js/components/Subscribe.js"></script>
-<script src="./js/config/config.js"></script>
+<script src="{% static 'js/components/Purchases.js' %}"></script>
+<script src="{% static 'js/components/Favorites.js' %}"></script>
+<script src="{%static 'js/components/Subscribe.js' %}"></script>
+<script src="{% static 'js/config/config.js' %}"></script>
 
-<script src="./js/components/MainCards.js"></script>
-<script src="./js/components/SingleCard.js"></script>
-<script src="./js/components/Header.js"></script>
+<script src="{% static 'js/components/MainCards.js' %}"></script>
+<script src="{% static 'js/components/SingleCard.js' %}"></script>
+<script src="{% static 'js/components/Header.js' %}"></script>
 
-<script src="./js/api/Api.js"></script>
-<script src="singlePage.js"></script>
+<script src="{% static 'js/api/Api.js' %}"></script>
+<script src="{% static 'singlePage.js' %}"></script>
 {%endblock%}}
