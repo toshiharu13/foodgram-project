@@ -42,7 +42,7 @@ class Recipe(models.Model):
         blank=True,
         verbose_name='Описание',
         help_text='Описание рецепта',)
-    ingridients = models.ManyToManyField(
+    ingredients = models.ManyToManyField(
         ListOfIngridients,
         through='Ingredient',
         through_fields=('recipe', 'name'),
@@ -74,7 +74,6 @@ class Ingredient(models.Model):
     name = models.ForeignKey(ListOfIngridients,
                              on_delete=models.CASCADE,
                              related_name='ingridient_name',)
-    #units_of_measurement = models.ManyToManyField(ListOfIngridients,)
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE,
         related_name="recipe_ingredients",
