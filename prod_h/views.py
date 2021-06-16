@@ -39,7 +39,7 @@ def recipe_detail(request, recipe_id):
 
 @login_required
 def new_recipe(request):
-    if request.method == 'POST':
+    '''if request.method == 'POST':
         form = RecipeForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
@@ -49,4 +49,12 @@ def new_recipe(request):
 
         return render(request, 'formRecipe.html', {'form': form})
     form = RecipeForm()
+    return render(request, 'formRecipe.html', {'form': form})'''
+
+
+    form = RecipeForm(request.POST or None, files=request.FILES or None,
+                      initial={'author': request.user})
+    if form.is_valid():
+        form.save()
+        return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})

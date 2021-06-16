@@ -20,6 +20,7 @@ class ListOfIngridients(models.Model):
 
 class Teg(models.Model):
     name = models.CharField(max_length=20)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name
@@ -43,11 +44,11 @@ class Recipe(models.Model):
         help_text='Описание рецепта',)
     ingridients = models.ManyToManyField(
         ListOfIngridients,
-        through='Ingridient',
+        through='Ingredient',
         through_fields=('recipe', 'name'),
         verbose_name='Игредиенты',
         help_text='Игредиенты',)
-    teg = models.ManyToManyField(Teg,)
+    tags = models.ManyToManyField(Teg, )
     time = models.IntegerField(verbose_name='Вермя приготовления')
     pub_date = models.DateTimeField("date published", auto_now_add=True)
 
@@ -69,7 +70,7 @@ class Favorite(models.Model):
         related_name='favorite',
     )
 
-class Ingridient(models.Model):
+class Ingredient(models.Model):
     name = models.ForeignKey(ListOfIngridients,
                              on_delete=models.CASCADE,
                              related_name='ingridient_name',)
