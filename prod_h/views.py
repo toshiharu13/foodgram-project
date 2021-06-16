@@ -55,6 +55,8 @@ def new_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None,
                       initial={'author': request.user})
     if form.is_valid():
+        instance = form.save(commit=False)
+        instance.author = request.user
         form.save()
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})

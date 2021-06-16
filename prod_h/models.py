@@ -1,5 +1,9 @@
+from datetime import datetime
+from django.utils import timezone
+
 from django.db import models
 from django.contrib.auth import get_user_model
+from prod_h.serices import translate_rus_eng
 
 User = get_user_model()
 
@@ -44,13 +48,26 @@ class Recipe(models.Model):
         help_text='Описание рецепта',)
     ingredients = models.ManyToManyField(
         ListOfIngridients,
-        through='Ingredient',
-        through_fields=('recipe', 'name'),
+        through='Amount',
+        through_fields=('recipe', 'ingredient'),
         verbose_name='Игредиенты',
         help_text='Игредиенты',)
     tags = models.ManyToManyField(Teg, )
     time = models.IntegerField(verbose_name='Вермя приготовления')
     pub_date = models.DateTimeField("date published", auto_now_add=True)
+    slug = models.SlugField(
+        max_length=500,
+        unique=True,
+        blank=True,
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = translate_rus_eng(self.name) + '_' + datetime.strftime(
+                timezone.now(), '%d_%m_%y_%H_%M_%S_%s'
+            )
+        super().save(*args, **kwargs)
+
 
     class Meta:
         ordering = ["-pub_date"]
@@ -70,10 +87,10 @@ class Favorite(models.Model):
         related_name='favorite',
     )
 
-class Ingredient(models.Model):
-    name = models.ForeignKey(ListOfIngridients,
-                             on_delete=models.CASCADE,
-                             related_name='ingridient_name',)
+class Amount(models.Model):
+    ingredient = models.ForeignKey(ListOfIngridients,
+                                   on_delete=models.CASCADE,
+                                   related_name='ingridient_name', )
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE,
         related_name="recipe_ingredients",
@@ -83,7 +100,7 @@ class Ingredient(models.Model):
         default=1)
 
     def __str__(self):
-        return self.name.name
+        return self.ingredient.name
 
 class Follow(models.Model):
     user = models.ForeignKey(

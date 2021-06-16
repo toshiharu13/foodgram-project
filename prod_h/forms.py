@@ -1,13 +1,21 @@
 from django import forms
-from .models import Recipe, Teg, ListOfIngridients, Ingredient
+from .models import Recipe, Teg, ListOfIngridients, Amount
 
 class RecipeForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Teg.objects.all(),
-        to_field_name='slug',
-        required=False,
-    )
 
     class Meta:
         model = Recipe
-        fields = ['name', 'time', 'text', 'image', 'ingredients', "tags",]
+        fields = ['name', 'time', 'text', 'image',]
+
+    widgets = {
+        'name': forms.TextInput(attrs={
+            'class': 'form__input'
+        }),
+        'time': forms.TextInput(attrs={
+            'class': 'form__input'
+        }),
+        'text': forms.Textarea(attrs={
+            'rows': 8,
+            'class': 'form__textarea'
+        }),
+    }
