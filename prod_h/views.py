@@ -2,13 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 
-from prod_h.utils import get_tags
+from prod_h.utils import get_tags, get_ingredients, tags_filter
 from prod_h.models import Recipe, User, Teg
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
 
 
 def index(request):
+    tags = tags_filter(request)
     latest = Recipe.objects.order_by('-pub_date')
     paginator = Paginator(latest, 6)
     page_number = request.GET.get('page')
@@ -62,5 +63,8 @@ def new_recipe(request):
         for name_tag in get_tags(request):
             tag_from_bd = get_object_or_404(Teg, name=name_tag)
             instance.tags.add(tag_from_bd.id)
+        # Adds ingredients to the recipe
+        get_ingredients(request, instance)
+
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})

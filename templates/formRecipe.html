@@ -183,8 +183,8 @@
             <div class="form__field-group-ingredientes-container">
               {% for i in recipe.recipe_ingredients.all %}
                 <div class="form__field-item-ingredient" id="ing_{{ forloop.counter }}">
-                  <span> {{ i.ingredient.name }} {{ i.count }} {{ i.ingredient.units_of_measurement }}</span> <span
-                    class="form__field-item-delete"></span>
+                  <span> {{ i.ingredient.name }} {{ i.count }} {{ i.ingredient.units_of_measurement }}</span>
+                  <span class="form__field-item-delete"></span>
                   <input id="nameIngredient_{{ forloop.counter }}" name="nameIngredient_{{ forloop.counter }}"
                          type="hidden" value="{{ i.ingredient }}">
                   <input id="valueIngredient_{{ forloop.counter }}" name="valueIngredient_{{ forloop.counter }}"
