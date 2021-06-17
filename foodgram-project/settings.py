@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'prod_h',
     'django.contrib.flatpages',
     'sorl.thumbnail',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

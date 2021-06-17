@@ -28,7 +28,7 @@ def get_ingredients(request, recipe):
             temp_amount = Amount.objects.get_or_create(
                     ingredient=ingredient,
                     recipe=recipe,
-                    count=amount)
+                    counts=amount)[0]
             ingredients.append(temp_amount)
     Amount.objects.bulk_create(ingredients)
 
