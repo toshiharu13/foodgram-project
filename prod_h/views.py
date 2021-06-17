@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 
-#from .models import Recipe, User
-from prod_h.models import Recipe, User
+from prod_h.utils import get_tags
+from prod_h.models import Recipe, User, Teg
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
 
@@ -58,5 +58,9 @@ def new_recipe(request):
         instance = form.save(commit=False)
         instance.author = request.user
         form.save()
+        # Adds tags to the recipe
+        for name_tag in get_tags(request):
+            tag_from_bd = get_object_or_404(Teg, name=name_tag)
+            instance.tags.add(tag_from_bd.id)
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})
