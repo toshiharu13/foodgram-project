@@ -10,14 +10,18 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     tags = tags_filter(request)
-    latest = Recipe.objects.order_by('-pub_date')
+    latest = Recipe.objects.filter(tags__name__in=tags).prefetch_related('tags').select_related('author').distinct()
     paginator = Paginator(latest, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    return render(
-        request,
-        "indexNotAuth.html",
-        {"posts": latest, "page": page, 'paginator': paginator})
+    all_tags = Teg.objects.all()
+    context = {
+        "posts": latest,
+        "page": page,
+        'paginator': paginator,
+        'all_tags': all_tags,
+    }
+    return render(request, "indexNotAuth.html", context=context)
 
 def authors_recipes(request, username):
     author = get_object_or_404(User, username=username)
