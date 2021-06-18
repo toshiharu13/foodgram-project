@@ -25,7 +25,11 @@ class ListOfIngridients(models.Model):
 class Teg(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(unique=True)
-
+    color = models.CharField(
+        max_length=20,
+        verbose_name='Цвет тега',
+        blank=True
+    )
 
     def __str__(self):
         return self.name
