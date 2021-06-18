@@ -64,7 +64,9 @@ def new_recipe(request):
             tag_from_bd = get_object_or_404(Teg, name=name_tag)
             instance.tags.add(tag_from_bd.id)
         # Adds ingredients to the recipe
-        get_ingredients(request, instance)
+        list_of_ingredients = get_ingredients(request, instance)
+        for ingr in list_of_ingredients:
+            instance.ingredients.add(ingr)
 
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})

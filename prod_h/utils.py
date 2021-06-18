@@ -16,21 +16,20 @@ def get_tags(request):
 
 def get_ingredients(request, recipe):
     # Add Ingredients to New Recipe.
-    ingredients = []
+    ist_of_ingredients = []
     name_of_ingredient = None
     for key, value in request.POST.items():
         if 'nameIngredient' in key:
             name_of_ingredient = value
         if 'valueIngredient' in key:
-            #amount = Decimal(value.replace(',', '.'))
-            amount = value
+            amount = Decimal(value.replace(',', '.'))
             ingredient = get_object_or_404(ListOfIngridients, name=name_of_ingredient)
-            temp_amount = Amount.objects.get_or_create(
+            Amount.objects.get_or_create(
                     ingredient=ingredient,
                     recipe=recipe,
                     counts=amount)[0]
-            ingredients.append(temp_amount)
-    Amount.objects.bulk_create(ingredients)
+            ist_of_ingredients.append(ingredient)
+    return ist_of_ingredients
 
 def tags_filter(request):
     # Get actual tags
