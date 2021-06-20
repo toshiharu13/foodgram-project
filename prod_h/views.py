@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.http import HttpResponse
+import datetime as dt
 
 from prod_h.utils import get_tags, get_ingredients, tags_filter
-from prod_h.models import Recipe, User, Teg
+from prod_h.models import Recipe, User, Teg, Amount
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
 
@@ -74,3 +75,41 @@ def new_recipe(request):
 
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})
+
+@login_required
+def recipe_edit(request, recipe_id):
+    # Edit instance
+    edit = True
+    instance = get_object_or_404(Recipe, id=recipe_id)
+
+    if not request.user.is_superuser:
+        if instance.author != request.user:
+            return redirect('recipe_detail', instance.id)
+
+    form = RecipeForm(request.POST or None,
+                      files=request.FILES or None,
+                      instance=instance)
+
+    if form.is_valid():
+        recipe = form.save(commit=False)
+        recipe.pub_date = dt.datetime.now()
+        recipe.tags.clear()
+        recipe.save()
+        # Adds tags to the recipe
+        for name_tag in get_tags(request):
+            tag = get_object_or_404(Teg, name=name_tag)
+            recipe.tags.add(tag.id)
+
+        Amount.objects.filter(recipe=recipe).delete()
+        # Adds ingredients to the recipe
+        list_of_ingredients = get_ingredients(request, recipe)
+        for ingr in list_of_ingredients:
+            recipe.ingredients.add(ingr)
+        return redirect('recipe_detail', recipe_id)
+    context = {
+        'edit': edit,
+        'recipe': instance,
+        'form': form,
+        'tags': instance.tags.all()
+    }
+    return render(request, 'formRecipe.html', context)
