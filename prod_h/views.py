@@ -81,15 +81,12 @@ def recipe_edit(request, recipe_id):
     # Edit instance
     edit = True
     instance = get_object_or_404(Recipe, id=recipe_id)
-
     if not request.user.is_superuser:
         if instance.author != request.user:
             return redirect('recipe_detail', instance.id)
-
     form = RecipeForm(request.POST or None,
                       files=request.FILES or None,
                       instance=instance)
-
     if form.is_valid():
         recipe = form.save(commit=False)
         recipe.pub_date = dt.datetime.now()
@@ -113,3 +110,13 @@ def recipe_edit(request, recipe_id):
         'tags': instance.tags.all()
     }
     return render(request, 'formRecipe.html', context)
+
+def recipe_delete(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    if not request.user.is_superuser:
+        if request.user != recipe.author:
+            return redirect('recipe', recipe.id)
+
+    recipe.delete()
+    return redirect('author_recipe', request.user.username)
