@@ -23,11 +23,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     #регистрация и авторизация
     path('auth/', include('users.urls')),
-
     #если нужного шаблона для /auth не нашлось в файле users.urls —
     #ищем совпадения в файле django.contrib.auth.urls
     path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path('api/', include("api.urls")),
     path('', include('prod_h.urls')),
     path('about-author/', include('django.contrib.flatpages.urls')),
     path('about-tech/', include('django.contrib.flatpages.urls')),

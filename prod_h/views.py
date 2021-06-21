@@ -120,3 +120,37 @@ def recipe_delete(request, recipe_id):
 
     recipe.delete()
     return redirect('author_recipe', request.user.username)
+
+@login_required
+def follow_index(request):
+    # The subscriber page is displayed.
+    author_list = request.user.follower.all()
+
+    paginator = Paginator(author_list, 6)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'page': page,
+        "paginator": paginator
+    }
+    return render(request, 'myFollow.html', context)
+
+@login_required
+def favorite_index(request):
+    # The favorite recipe page is displayed.
+    tags = tags_filter(request)
+    recipe_list = Recipe.objects.filter(
+        favorite__user=request.user,
+        tags__name__in=tags
+    ).prefetch_related('tags').select_related('author').distinct()
+
+    paginator = Paginator(recipe_list, 6)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'tags': tags,
+        'all_tags': Teg.objects.all(),
+        'page': page,
+        "paginator": paginator
+    }
+    return render(request, 'favorite.html', context)

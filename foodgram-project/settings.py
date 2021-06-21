@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'api',
     'users',
     'django.contrib.sites',
     'django.contrib.admin',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'sorl.thumbnail',
     'django_extensions',
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -151,5 +154,23 @@ LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = 'index'
 SITE_ID = 1
 TAGS = ['breakfast', 'lunch', 'dinner']
+
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+}
