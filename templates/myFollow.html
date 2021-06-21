@@ -1,4 +1,11 @@
-<!doctype html>
+{% extends "base.html" %}
+{% block title %} Мои подписки {% endblock %}
+{% load static %}
+{% load thumbnail %}
+{% block static_css %}<link rel="stylesheet" href="{% static '/pages/myFollow.css' %}">{% endblock %}
+{% load user_filters %}
+{% block content %}
+<!--<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -161,7 +168,45 @@
             <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
         </ul>
     </div>
-</footer>
+</footer>-->
+
+{% for follow in page %}
+        <div class="card-user" data-author="{{ follow.author.id }}">
+        <div class="card-user__header">
+            <h2 class="card-user__title">{{ follow.author.get_full_name }}</h2>
+        </div>
+        <div class="card-user__body">
+            <ul class="card-user__items">
+                {% for recipe in follow.author.recipes.all|slice:"3" %}
+                <li class="card-user__item">
+                    <div class="recipe">
+                        {% thumbnail recipe.image "480x480" as im %}
+                            <a href="{% url 'recipe' recipe.id %}"><img src="{{ im.url }}" alt="Картинка" class="recipe__image"></a>
+                        {% endthumbnail %}
+                        <h3 class="recipe__title">{{ recipe.name }}</h3>
+                        <p class="recipe__text"><span class="icon-time"></span> {{ recipe.time_cooking }} мин.</p>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="card-user__item">
+                    {% if  follow.author.recipes.all.count > 3 %}
+                        <a href="{% url 'authors-recipes' follow.author %}" class="card-user__link link">{{ follow.author.recipes.all.count|follow_count }} </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <div class="card-user__footer">
+          <a href="{% url 'follow' %}">
+            <button class="button button_style_light-blue button_size_auto" name="subscribe">Отписаться</button>
+          </a>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+        {% if page.has_other_pages %}
+            {% include "includes/paginator.html" with items=page paginator=paginator%}
+        {% endif %}
+
 <script src="./js/config/config.js"></script>
 <script src="./js/components/MainCards.js"></script>
 <script src="./js/components/MyFollow.js"></script>
@@ -169,6 +214,4 @@
 <script src="./js/components/Header.js"></script>
 <script src="./js/api/Api.js"></script>
 <script src="myFollow.js"></script>
-
-</body>
-</html>
+{%endblock%}

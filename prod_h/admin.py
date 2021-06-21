@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Teg, ListOfIngridients, Amount, Recipe
+from .models import Teg, ListOfIngridients, Amount, Recipe, Follow
 
 
 class TegAdmin(admin.ModelAdmin):
@@ -27,9 +27,16 @@ class RecipeAdmin(admin.ModelAdmin):
     # list_filter = ("name")
     empty_value_display = "-пусто-"
 
+class FollowAdmin(admin.ModelAdmin):
+    list_display = ("author", "user")
+    search_fields = ("author",)
+    # list_filter = ("name")
+    empty_value_display = "-пусто-"
+
 
 admin.site.register(Teg, TegAdmin)
 admin.site.register(ListOfIngridients, ListOfIgridientsAdmin)
 admin.site.register(Amount, IngridientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Follow, FollowAdmin)
 
