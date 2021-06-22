@@ -80,6 +80,7 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+
 class Favorite(models.Model):
     user = models.ForeignKey(
         User,
@@ -91,6 +92,10 @@ class Favorite(models.Model):
         on_delete=models.CASCADE,
         related_name='favorite',
     )
+
+    def __str__(self):
+        return f'{self.user} - {self.recipe}'
+
 
 class Amount(models.Model):
     ingredient = models.ForeignKey(ListOfIngridients,

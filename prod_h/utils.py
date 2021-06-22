@@ -22,7 +22,8 @@ def get_ingredients(request, recipe):
         if 'nameIngredient' in key:
             name_of_ingredient = value
         if 'valueIngredient' in key:
-            amount = Decimal(value.replace(',', '.'))
+            #amount = Decimal(value.replace(',', '.'))
+            amount = value
             ingredient = get_object_or_404(ListOfIngridients, name=name_of_ingredient)
             Amount.objects.get_or_create(
                     ingredient=ingredient,

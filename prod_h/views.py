@@ -116,10 +116,10 @@ def recipe_delete(request, recipe_id):
 
     if not request.user.is_superuser:
         if request.user != recipe.author:
-            return redirect('recipe', recipe.id)
+            return redirect('recipe_detail', recipe.id)
 
     recipe.delete()
-    return redirect('author_recipe', request.user.username)
+    return redirect('authors-recipes', request.user.username)
 
 @login_required
 def follow_index(request):
