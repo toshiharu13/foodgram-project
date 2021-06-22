@@ -13,4 +13,8 @@ urlpatterns = [
 
     path('my_favorite/', views.favorite_index, name='my_favorite'),
     path('', views.index, name='index'),
+    path('<str:username>/follow/', views.profile_follow,
+         name='profile_follow'),
+    path('<str:username>/unfollow/', views.profile_unfollow,
+        name='profile_unfollow'),
 ]

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import datetime as dt
 
 from prod_h.utils import get_tags, get_ingredients, tags_filter
-from prod_h.models import Recipe, User, Teg, Amount
+from prod_h.models import Recipe, User, Teg, Amount, Follow
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
 
@@ -168,3 +168,24 @@ def page_not_found(request, exception=None):
 
 def server_error(request):
     return render(request, "misc/500.html", status=500)
+
+@login_required
+def profile_follow(request, username):
+    author = get_object_or_404(User, username=username)
+    if author == request.user:
+        return redirect('follow')
+    Follow.objects.get_or_create(
+        author=get_object_or_404(User, username=username),
+        user=request.user,
+    )
+    return redirect('follow')
+
+
+@login_required
+def profile_unfollow(request, username):
+    Follow.objects.filter(
+        author=get_object_or_404(User, username=username),
+        user=request.user,
+    ).delete()
+    return redirect('follow')
+
