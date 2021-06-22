@@ -11,6 +11,10 @@ urlpatterns = [
     path('following/', views.follow_index, name='follow'),
     path('my_favorite/', views.favorite_index, name='my_favorite'),
     path('<str:username>/', views.authors_recipes, name='authors-recipes'),
+    path('cart/', views.cart, name='cart'),
+    path('cart/<int:recipe_id>/', views.remove_recipe_from_cart,
+         name='remove_recipe_from_cart'),
+    path('download/', views.download, name='download'),
 
     path('', views.index, name='index'),
     path('<str:username>/follow/', views.profile_follow,

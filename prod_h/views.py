@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 import datetime as dt
+from django.db.models import Sum
 
-from prod_h.utils import get_tags, get_ingredients, tags_filter
-from prod_h.models import Recipe, User, Teg, Amount, Follow
+from prod_h.utils import get_tags, get_ingredients, tags_filter, download_pdf
+from prod_h.models import Recipe, User, Teg, Amount, Follow, Cart
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
 
@@ -45,19 +46,6 @@ def recipe_detail(request, recipe_id):
 
 @login_required
 def new_recipe(request):
-    '''if request.method == 'POST':
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.author = request.user
-            instance.save()
-            return redirect('index')
-
-        return render(request, 'formRecipe.html', {'form': form})
-    form = RecipeForm()
-    return render(request, 'formRecipe.html', {'form': form})'''
-
-
     form = RecipeForm(request.POST or None, files=request.FILES or None,
                       initial={'author': request.user})
     if form.is_valid():
@@ -189,3 +177,30 @@ def profile_unfollow(request, username):
     ).delete()
     return redirect('follow')
 
+@login_required
+def cart(request):
+    # Site cart.
+    context = {
+        'recipes': request.user.purchases.all(),
+    }
+    return render(request, 'custompage.html', context)
+
+def remove_recipe_from_cart(request, recipe_id):
+    # Removes selected recipes from the cart.
+    recipes = get_object_or_404(Recipe, id=recipe_id)
+    Cart.objects.filter(item=recipes, customer=request.user).delete()
+    return redirect('cart')
+
+
+def download(request):
+    # The request loads the ingredients of the selected recipes.
+    # And their amount.
+    data = request.user.purchases.select_related(
+                'item'
+            ).order_by(
+                'item__ingredients__name'
+            ).values(
+                'item__ingredients__name', 'item__ingredients__unit'
+            ).annotate(amount=Sum('item__recipe_ingredients__amount')).all()
+
+    return download_pdf(data)
