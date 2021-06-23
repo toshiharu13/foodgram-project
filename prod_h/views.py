@@ -90,7 +90,6 @@ def recipe_edit(request, recipe_id):
         list_of_ingredients = get_ingredients(request, recipe)
         for ingr in list_of_ingredients:
             recipe.ingredients.add(ingr)
-        #return redirect('recipe_detail', recipe_id)
         return redirect('index')
     context = {
         'edit': edit,
