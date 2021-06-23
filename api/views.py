@@ -18,9 +18,7 @@ class CreateDestroyMethod(
 
 class FollowViewSet(CreateDestroyMethod):
     """
-    Save or delete subscribes
-    Table:
-        Follow
+    Table:  Follow
     Available methods:
         POST, DELETE
     Args:
@@ -43,9 +41,7 @@ class FollowViewSet(CreateDestroyMethod):
 
 class FavoriteViewSet(CreateDestroyMethod):
     """
-    Save or delete favorites recipe
-    Table:
-        Favorite
+    Table: Favorite
     Available methods:
         POST, DELETE
     Args:
@@ -56,11 +52,11 @@ class FavoriteViewSet(CreateDestroyMethod):
     serializer_class = FavoriteSerializer
     lookup_field = 'recipe'
 
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         id = serializer.data['recipe']
         recipe = get_object_or_404(Recipe, id=id)
-        recipe.fav_counter += 1
         recipe.save()
 
     def destroy(self, request, *args, **kwargs):
@@ -68,10 +64,6 @@ class FavoriteViewSet(CreateDestroyMethod):
                                      user=request.user,
                                      recipe=kwargs.get('recipe')
                                      )
-        id = self.kwargs['recipe']
-        recipe = get_object_or_404(Recipe, id=id)
-        recipe.fav_counter -= 1
-        recipe.save()
         self.perform_destroy(instance)
         content = {'success': True}
         return Response(content, status=status.HTTP_200_OK)
@@ -79,9 +71,7 @@ class FavoriteViewSet(CreateDestroyMethod):
 
 class PurchasesViewSet(CreateDestroyMethod):
     """
-    Add or remove recipes from cart
-    Table:
-        Cart
+    Table: Cart
     Available methods:
         POST, DELETE
     Args:
@@ -105,8 +95,7 @@ class PurchasesViewSet(CreateDestroyMethod):
 class ComponentsViewSet(generics.ListAPIView, viewsets.GenericViewSet):
     """
     Search ingredients
-    Table:
-        Composition
+    Table: ListOfIngridients
     Available methods:
         GET
     Args:

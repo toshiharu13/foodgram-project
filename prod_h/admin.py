@@ -28,7 +28,7 @@ class RecipeAdmin(admin.ModelAdmin):
     empty_value_display = "-пусто-"
 
 class FollowAdmin(admin.ModelAdmin):
-    list_display = ("author", "user")
+    list_display = ("author", "user", "pk")
     search_fields = ("author",)
     # list_filter = ("name")
     empty_value_display = "-пусто-"

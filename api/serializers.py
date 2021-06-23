@@ -6,7 +6,7 @@ from prod_h.models import Cart, ListOfIngridients, Favorite, Follow
 
 class ComponentsSerializer(serializers.ModelSerializer):
     title = serializers.ReadOnlyField(source='name')
-    dimension = serializers.ReadOnlyField(source='unit')
+    dimension = serializers.ReadOnlyField(source='units_of_measurement')
 
     class Meta:
         model = ListOfIngridients
