@@ -12,3 +12,9 @@ def follow_count(count):
         return f"Еще {str(count)} рецепта..."
     else:
         return f"Еще {str(count)} рецептов..."
+
+@register.filter
+def purchases_count(user):
+    if user.purchases.all().count() == 0:
+        return ''
+    return user.purchases.all().count()
