@@ -40,18 +40,23 @@ def tags_filter(request):
     return tags_list
 
 def download_pdf(data):
-    # Download shopping list in pdf format
+    """Download shopping list in pdf format"""
+    # Create the HttpResponse object with the appropriate PDF headers.
     pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="List product.pdf"'
-
+    # Create the PDF object, using the response object as its "file."
     p = canvas.Canvas(response)
+
     p.setFont('DejaVuSans', 15)
+    # Draw things on the PDF. Here's where the PDF generation happens.
     p.drawString(100, 800, "Список продуктов:")
-    p.setFont('DejaVuSans', 10)
     x, y = 10, 780
     for item in data:
         p.drawString(x, y, item.get('item__ingredients__name')
-                     + ' ' + '(' + item.get('item__ingredients__unit') + ')'
+                     + ' ' + '(' + item.get('item__ingredients__units_of_measurement') + ')'
                      + ' - ' + str(item.get('amount')))
         y -= 15
+        p.showPage()
+        p.save()
+        return response

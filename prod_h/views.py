@@ -195,12 +195,14 @@ def remove_recipe_from_cart(request, recipe_id):
 def download(request):
     # The request loads the ingredients of the selected recipes.
     # And their amount.
-    data = request.user.purchases.select_related(
-                'item'
-            ).order_by(
-                'item__ingredients__name'
-            ).values(
-                'item__ingredients__name', 'item__ingredients__units_of_measurement'
-            ).annotate(amount=Sum('item__recipe_ingredients__counts')).all()
-
+    data_not_sum = request.user.purchases.all().select_related(
+            'item'
+        ).order_by(
+            'item__ingredients__name'
+        ).values(
+            'item__ingredients__name', 'item__ingredients__units_of_measurement')
+    data = data_not_sum.annotate(amount=Sum('item__recipe_ingredients__counts')).all()
     return download_pdf(data)
+
+
+
