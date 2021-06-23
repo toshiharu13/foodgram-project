@@ -14,7 +14,12 @@ __pycache__/
 *.sublime-project
 *.sublime-workspace
 
-#media/
+media/
 
-
+# Environments
 .env
+.idea
+
+# Django db:
+db.sqlite3
+db.sqlite3-journal
