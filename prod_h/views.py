@@ -183,7 +183,7 @@ def cart(request):
     context = {
         'recipes': request.user.purchases.all(),
     }
-    return render(request, 'custompage.html', context)
+    return render(request, 'shopList.html', context)
 
 def remove_recipe_from_cart(request, recipe_id):
     # Removes selected recipes from the cart.
@@ -200,7 +200,7 @@ def download(request):
             ).order_by(
                 'item__ingredients__name'
             ).values(
-                'item__ingredients__name', 'item__ingredients__unit'
-            ).annotate(amount=Sum('item__recipe_ingredients__amount')).all()
+                'item__ingredients__name', 'item__ingredients__units_of_measurement'
+            ).annotate(amount=Sum('item__recipe_ingredients__counts')).all()
 
     return download_pdf(data)
