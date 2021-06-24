@@ -20,7 +20,7 @@ class ListOfIngridients(models.Model):
                                             )
 
     def __str__(self):
-        return f'{self.name} ({self.units_of_measurement})'
+        return self.name
 
 class Teg(models.Model):
     name = models.CharField(max_length=20)
