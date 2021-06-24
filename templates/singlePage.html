@@ -16,13 +16,7 @@
                     {% if user.is_authenticated %}
                         {% csrf_token %}
                     <div class="single-card__favorite">
-                        {% if user|fav_to:recipe %}
-                            <button class="button button_style_none" name="favorites"><span class="icon-favorite icon-favorite_active"></span></button>
-                            <div class="single-card__favorite-tooltip tooltip">Рецепт в избранном</div>
-                        {% else %}
-                             <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_big"></span></button>
-                             <div class="single-card__favorite-tooltip tooltip">Добавить в избранное</div>
-                        {% endif %}
+                       {% include "includes/fav_but.html" %}
                     </div>
                     {%endif%}
                 </div>
@@ -47,11 +41,7 @@
                         {% else %}
                             <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
                         {% endif %}
-                        {% if user|foll_to:recipe %}
-                            <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe">Вы подписаны</button></li>
-                        {% else %}
-                            <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
-                        {% endif %}
+                        {% include "includes/foll_but.html" %}
 
                     </a>
                     {%endif%}
