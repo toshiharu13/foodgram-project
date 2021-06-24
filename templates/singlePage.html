@@ -38,16 +38,17 @@
                         {%endif%}
                     </ul>
                 </div>
-                <ul class="single-card__items">
+                {% csrf_token %}
+                <ul class="single-card__items" data-author="{{recipe.author.id}}">
                     {% if user.is_authenticated %}
                         {% if user|bought_to:recipe %}
-                            <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Рецепт добавлен</button></li>
+                            <li class="single-card__item"><button class="button button_style_blue" name="purchases"><span class="icon-plus"></span> Рецепт добавлен</button></li>
                             <!--<a href="{% url 'profile_follow' recipe.author %}">-->
                         {% else %}
                             <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
                         {% endif %}
                         {% if user|foll_to:recipe %}
-                            <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Вы подписаны</button></li>
+                            <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe">Вы подписаны</button></li>
                         {% else %}
                             <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
                         {% endif %}
