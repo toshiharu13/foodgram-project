@@ -31,10 +31,13 @@ def authors_recipes(request, username):
     paginator = Paginator(user_recipe, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
+    all_tags = Teg.objects.all()
     context = {
         'page': page,
         'paginator': paginator,
-        'author': author,}
+        'author': author,
+        'all_tags': all_tags,
+    }
     return render(request, "authorRecipe.html", context=context)
 
 def recipe_detail(request, recipe_id):
