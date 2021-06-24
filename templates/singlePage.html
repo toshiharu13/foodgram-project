@@ -1,12 +1,13 @@
 {% extends "base.html" %}
-{% block title %} Рецепты {% endblock %}
+{% block title %}{{ recipe.name }}{% endblock %}
 {% load static %}
-{% block static_css %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
+{% load user_filters %}
+{% block static_css %}<link rel="stylesheet" href="{% static 'pages/single.css' %}">{% endblock %}
     {%block content%}
     <main class="main container">
         <div class="single-card" data-id="371" data-author="12">
             {% load thumbnail %}
-            {% thumbnail recipe.image "364x240" crop="center" upscale=True as img %}
+            {% thumbnail recipe.image "480x480" crop="center" upscale=True as img %}
             <a href="#" class="link" target="_blank"><img src="{{ img.url }}" alt="{{ post.name }}" class="card__image"></a>
             {% endthumbnail %}
             <div class="single-card__info">
@@ -14,8 +15,13 @@
                     <h1 class="single-card__title">{{recipe.name}}</h1>
                     {% if user.is_authenticated %}
                     <div class="single-card__favorite">
-                        <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_big"></span></button>
-                        <div class="single-card__favorite-tooltip tooltip">Добавить в избранное</div>
+                        {% if user|fav_to:recipe %}
+                            <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_active"></span></button>
+                            <div class="single-card__favorite-tooltip tooltip">Рецепт в избранном</div>
+                        {% else %}
+                             <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_big"></span></button>
+                             <div class="single-card__favorite-tooltip tooltip">Добавить в избранное</div>
+                        {% endif %}
                     </div>
                     {%endif%}
                 </div>
@@ -33,9 +39,15 @@
                 </div>
                 <ul class="single-card__items">
                     {% if user.is_authenticated %}
-                    <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
-                    <a href="{% url 'profile_follow' recipe.author %}">
-                      <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
+                        {% if user|bought_to:recipe %}
+                            <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Рецепт добавлен</button></li>
+                            <!--<a href="{% url 'profile_follow' recipe.author %}">-->
+                        {% else %}
+                            <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
+                        {% endif %}
+
+                        <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
+
                     </a>
                     {%endif%}
                 </ul>
