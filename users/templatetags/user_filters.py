@@ -26,3 +26,7 @@ def bought_to(user, recipe):
 @register.filter
 def fav_to(user, recipe):
     return user.favorites.filter(recipe=recipe).exists()
+
+@register.filter
+def foll_to(user, recipe):
+    return user.follower.filter(user=user, author=recipe.author).exists()

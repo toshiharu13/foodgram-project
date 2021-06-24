@@ -45,8 +45,11 @@
                         {% else %}
                             <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
                         {% endif %}
-
-                        <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
+                        {% if user|foll_to:recipe %}
+                            <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Вы подписаны</button></li>
+                        {% else %}
+                            <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
+                        {% endif %}
 
                     </a>
                     {%endif%}
