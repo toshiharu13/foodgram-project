@@ -1,7 +1,8 @@
-<div class="card" data-id="120">
+<div class="card" data-id="{{recipe.id}}">
       <!-- Отображение картинки -->
       {% load thumbnail %}
       {% load user_filters %}
+      {% load static %}
       {% thumbnail post.image "364x240" crop="center" upscale=True as img %}
         <a href="{% url 'recipe_detail' post.id %}" class="link" target="_blank"><img src="{{ img.url }}" alt="{{ post.name }}" class="card__image"></a>
       {% endthumbnail %}
@@ -17,6 +18,7 @@
         </div>
         <div class="card__footer">
             {% if user.is_authenticated %}
+               {% csrf_token %}
               {% if user|bought_to:recipe %}
                 <button class="button button_style_light-blue-outline" name="purchases" ><span
                     class="icon-check button__icon"></span> Рецепт добавлен
@@ -28,11 +30,17 @@
               {% endif %}
 
             {% if user|fav_to:recipe %}
-                <button class="button button_style_none" name="favorites"><span
-                    class="icon-favorite icon-favorite_active"></span></button>
+                <button class="button button_style_none" name="favorites"><span class="icon-favorite icon-favorite_active"></span></button>
             {% else %}
                 <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite"></span></button>
             {% endif %}
             {%endif%}
         </div>
     </div>
+<script src="{% static 'js/components/MainCards.js' %}"></script>
+<script src="{% static 'js/components/Purchases.js' %}"></script>
+<script src="{% static 'js/components/Favorites.js' %}"></script>
+<script src="{% static 'js/config/config.js' %}"></script>
+<script src="{% static 'js/components/CardList.js' %}"></script>
+<script src="{% static 'js/components/Header.js' %}"></script>
+<script src="{% static 'js/api/Api.js' %}"></script>
