@@ -34,20 +34,21 @@ class Api {
           return Promise.reject(e.statusText)
       })
   }
-  removePurchases (id){
-    return fetch(`/purchases/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then( e => {
-          if(e.ok) {
-              return e.json()
-          }
-          return Promise.reject(e.statusText)
-      })
-  }
+ removePurchases(id) {
+        return fetch(`/api/v1/purchases/${id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+            }
+        })
+            .then(e => {
+                if (e.ok) {
+                    return e.json()
+                }
+                return Promise.reject(e.statusText)
+            })
+    }
   addSubscriptions(id) {
     return fetch(`/subscriptions`, {
       method: 'POST',
@@ -79,37 +80,39 @@ class Api {
           return Promise.reject(e.statusText)
       })
   }
-  addFavorites (id)  {
-    return fetch(`/favorites`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: id
-      })
-    })
-        .then( e => {
-            if(e.ok) {
-                return e.json()
-            }
-            return Promise.reject(e.statusText)
+  addFavorites(id) {
+        return fetch(`/api/v1/favorites/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+            },
+            body: JSON.stringify({
+                recipe: id
+            })
         })
-  }
-  removeFavorites (id) {
-    return fetch(`/favorites/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-        .then( e => {
-            if(e.ok) {
-                return e.json()
+            .then(e => {
+                if (e.ok) {
+                    return e.json()
+                }
+                return Promise.reject(e.statusText)
+            })
+    }
+  removeFavorites(id) {
+        return fetch(`/api/v1/favorites/${id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
             }
-            return Promise.reject(e.statusText)
         })
-  }
+            .then(e => {
+                if (e.ok) {
+                    return e.json()
+                }
+                return Promise.reject(e.statusText)
+            })
+    }
     getIngredients  (text)  {
         return fetch(`/api/v1/ingredients/?query=${text}`, {
             headers: {

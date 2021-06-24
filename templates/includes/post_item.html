@@ -18,7 +18,7 @@
         <div class="card__footer">
             {% if user.is_authenticated %}
               {% if user|bought_to:recipe %}
-                <button class="button button_style_light-blue-outline" name="purchases"><span
+                <button class="button button_style_light-blue-outline" name="purchases" ><span
                     class="icon-check button__icon"></span> Рецепт добавлен
                 </button>
               {% else %}

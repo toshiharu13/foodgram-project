@@ -5,7 +5,7 @@
 {% block static_css %}<link rel="stylesheet" href="{% static 'pages/single.css' %}">{% endblock %}
     {%block content%}
     <main class="main container">
-        <div class="single-card" data-id="371" data-author="12">
+        <div class="single-card" data-id="{{recipe.id}}" data-author="{{recipe.author.id}}">
             {% load thumbnail %}
             {% thumbnail recipe.image "480x480" crop="center" upscale=True as img %}
             <a href="#" class="link" target="_blank"><img src="{{ img.url }}" alt="{{ post.name }}" class="card__image"></a>
@@ -14,6 +14,7 @@
                 <div class="single-card__header-info">
                     <h1 class="single-card__title">{{recipe.name}}</h1>
                     {% if user.is_authenticated %}
+                        {% csrf_token %}
                     <div class="single-card__favorite">
                         {% if user|fav_to:recipe %}
                             <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_active"></span></button>
@@ -71,7 +72,7 @@
     </main>
 <script src="{% static 'js/components/Purchases.js' %}"></script>
 <script src="{% static 'js/components/Favorites.js' %}"></script>
-<script src="{%static 'js/components/Subscribe.js' %}"></script>
+<script src="{% static 'js/components/Subscribe.js' %}"></script>
 <script src="{% static 'js/config/config.js' %}"></script>
 
 <script src="{% static 'js/components/MainCards.js' %}"></script>
