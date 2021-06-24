@@ -144,8 +144,6 @@ def favorite_index(request):
     return render(request, 'favorite.html', context)
 
 def page_not_found(request, exception=None):
-    # Переменная exception содержит отладочную информацию,
-    # выводить её в шаблон пользователской страницы 404 мы не станем
     return render(
         request,
         "misc/404.html",
