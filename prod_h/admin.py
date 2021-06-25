@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Teg, ListOfIngridients, Amount, Recipe, Follow, Favorite, Cart
+
+from .models import (Amount, Cart, Favorite, Follow, ListOfIngridients, Recipe,
+                     Teg)
 
 
 class TegAdmin(admin.ModelAdmin):
@@ -9,9 +11,9 @@ class TegAdmin(admin.ModelAdmin):
     empty_value_display = "-пусто-"
 
 class ListOfIgridientsAdmin(admin.ModelAdmin):
-    list_display = ( "pk", "name","units_of_measurement",)
+    list_display = ("pk", "name","units_of_measurement",)
     search_fields = ("name",)
-    # list_filter = ("name")
+    list_filter = ("name",)
     empty_value_display = "-пусто-"
 
 
@@ -24,7 +26,7 @@ class IngridientAdmin(admin.ModelAdmin):
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ("pk", "name", "author", "time","pub_date")
     search_fields = ("name",)
-    # list_filter = ("name")
+    list_filter = ("name",)
     empty_value_display = "-пусто-"
 
 class FollowAdmin(admin.ModelAdmin):

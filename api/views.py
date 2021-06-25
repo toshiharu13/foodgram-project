@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from api.serializers import (ComponentsSerializer, FavoriteSerializer,
-                                  FollowSerializer, PurchasesSerializer)
-from prod_h.models import Cart, ListOfIngridients, Favorite, Follow, Recipe
+                             FollowSerializer, PurchasesSerializer)
+from prod_h.models import Cart, Favorite, Follow, ListOfIngridients, Recipe
 
 
 class CreateDestroyMethod(

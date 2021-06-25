@@ -1,13 +1,15 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator
-from django.http import HttpResponse
 import datetime as dt
-from django.db.models import Sum
 
-from prod_h.utils import get_tags, get_ingredients, tags_filter, download_pdf
-from prod_h.models import Recipe, User, Teg, Amount, Follow, Cart
-from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Sum
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+
+from prod_h.models import Amount, Cart, Follow, Recipe, Teg, User
+from prod_h.utils import download_pdf, get_ingredients, get_tags, tags_filter
+
+from .forms import RecipeForm
 
 
 def index(request):

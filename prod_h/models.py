@@ -1,8 +1,9 @@
 from datetime import datetime
+
+from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils import timezone
 
-from django.db import models
-from django.contrib.auth import get_user_model
 from prod_h.serices import translate_rus_eng
 
 User = get_user_model()
@@ -12,11 +13,11 @@ class ListOfIngridients(models.Model):
     name = models.CharField(max_length=50,
                             unique=True,
                             verbose_name='Название ингредиента',
-                            help_text='Название ингредиента, максимум 50 символов',
+                            help_text='Название ингредиента, макc. 50 символов'
                             )
     units_of_measurement = models.CharField(max_length=20,
                                             verbose_name='Единица измерения',
-                                            help_text='Единица измерения, максимум 20 симоволов',
+                                            help_text='Макс. 20 симоволов',
                                             )
 
     def __str__(self):

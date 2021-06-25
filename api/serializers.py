@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault, HiddenField
 
-from prod_h.models import Cart, ListOfIngridients, Favorite, Follow
+from prod_h.models import Cart, Favorite, Follow, ListOfIngridients
 
 
 class ComponentsSerializer(serializers.ModelSerializer):
