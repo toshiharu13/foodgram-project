@@ -6,7 +6,7 @@
       {% thumbnail post.image "364x240" crop="center" upscale=True as img %}
         <a href="{% url 'recipe_detail' post.id %}" class="link" target="_blank"><img src="{{ img.url }}" alt="{{ post.name }}" class="card__image"></a>
       {% endthumbnail %}
-        <div class="card__body">
+        <div class="card__body" >
             <a class="card__title link" href="{% url 'recipe_detail' post.id %}" target="_blank">{{post.name}}</a>
             <ul class="card__items">
                 {%include "includes/tag.html"%}
@@ -16,7 +16,7 @@
                 <p class="card__text"><span class="icon-user"></span> <a href="{%url 'authors-recipes' username=post.author.username %}" style="color: black">{{post.author.username}}</a></p>
             </div>
         </div>
-        <div class="card__footer">
+        <div class="card__footer" data-author="{{post.author.id}}">
             {% if user.is_authenticated %}
                {% csrf_token %}
               {% if user|bought_to:recipe %}
@@ -29,7 +29,8 @@
                 </button>
               {% endif %}
 
-            {% include "includes/fav_but.html" %}
+
+              {% include "includes/fav_but.html" with recipe=recipe %}
             {%endif%}
         </div>
     </div>

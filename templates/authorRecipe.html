@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %} Профиль автора {% endblock %}
 {% load static %}
+{% load user_filters %}
 {% block static_css %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
 {%block content%}
     <main class="main container">
@@ -15,12 +16,18 @@
         </div>
 
         <div class="author-subscribe"  data-author={{author.id}}>
+
+            {% if user|foll_to:recipe %}
+                <p class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe">Вы подписаны</button></p>
+            {% else %}
+                <p class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></p>
+            {% endif %}
             <!--<p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></p>-->
-            <p style="padding: 0 0 2em 0;">{% include "includes/foll_but.html" %}</p>
+            <!--<p style="padding: 0 0 2em 0;">{% include "includes/foll_but.html" %}</p>-->
         </div>
-        <div class="card-list">
-            {% for post in page %}
-            {% include "includes/post_item.html" with post=post %}
+        <div class="card-list" data-author={{author.id}}>
+            {% for recipe in page %}
+            {% include "includes/post_item.html" with post=recipe %}
             {% endfor %}
         </div>
     </main>
