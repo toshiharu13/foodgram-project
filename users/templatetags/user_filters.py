@@ -3,6 +3,7 @@ from django import template
 
 register = template.Library()
 
+
 @register.filter
 def follow_count(count):
     count = count - 3
@@ -13,19 +14,23 @@ def follow_count(count):
     else:
         return f"Еще {str(count)} рецептов..."
 
+
 @register.filter
 def purchases_count(user):
     if user.purchases.all().count() == 0:
         return ''
     return user.purchases.all().count()
 
+
 @register.filter
 def bought_to(user, recipe):
     return user.purchases.filter(item=recipe).exists()
 
+
 @register.filter
 def fav_to(user, recipe):
     return user.favorites.filter(recipe=recipe).exists()
+
 
 @register.filter
 def foll_to(user, recipe):

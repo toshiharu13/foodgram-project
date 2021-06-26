@@ -1,6 +1,3 @@
-# импортируем CreateView, чтобы создать ему наследника
-# функция reverse_lazy позволяет получить URL по параметру "name" функции path()
-# берём, тоже пригодится
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
