@@ -20,6 +20,7 @@ def get_tags(request):
             tags_list.append(key)
     return tags_list
 
+
 def get_ingredients(request, recipe):
     # Add Ingredients to New Recipe.
     ist_of_ingredients = []
@@ -28,8 +29,8 @@ def get_ingredients(request, recipe):
         if 'nameIngredient' in key:
             name_of_ingredient = value
         if 'valueIngredient' in key:
-            #amount = Decimal(value.replace(',', '.'))
-            if value == None or value == 0 or value == '':
+            # amount = Decimal(value.replace(',', '.'))
+            if value is None or value == 0 or value == '':
                 value = 1
             amount = value
             ingredient = get_object_or_404(
@@ -42,10 +43,12 @@ def get_ingredients(request, recipe):
             ist_of_ingredients.append(ingredient)
     return ist_of_ingredients
 
+
 def tags_filter(request):
     # Get actual tags
     tags_list = request.GET.getlist('tag', module.TAGS)
     return tags_list
+
 
 def download_pdf(data):
     """Download shopping list in pdf format"""

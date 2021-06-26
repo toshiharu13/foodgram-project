@@ -3,7 +3,6 @@ import datetime as dt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Sum
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from prod_h.models import Amount, Cart, Follow, Recipe, Teg, User
@@ -27,6 +26,7 @@ def index(request):
     }
     return render(request, "indexNotAuth.html", context=context)
 
+
 def authors_recipes(request, username):
     author = get_object_or_404(User, username=username)
     user_recipe = author.recipes.all()
@@ -42,12 +42,14 @@ def authors_recipes(request, username):
     }
     return render(request, "authorRecipe.html", context=context)
 
+
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     context = {
         'recipe': recipe,
     }
     return render(request, 'singlePage.html', context=context)
+
 
 @login_required
 def new_recipe(request):
@@ -68,6 +70,7 @@ def new_recipe(request):
 
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})
+
 
 @login_required
 def recipe_edit(request, recipe_id):
@@ -104,6 +107,7 @@ def recipe_edit(request, recipe_id):
     }
     return render(request, 'formRecipe.html', context)
 
+
 def recipe_delete(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
 
@@ -113,6 +117,7 @@ def recipe_delete(request, recipe_id):
 
     recipe.delete()
     return redirect('authors-recipes', request.user.username)
+
 
 @login_required
 def follow_index(request):
@@ -127,6 +132,7 @@ def follow_index(request):
         "paginator": paginator
     }
     return render(request, 'myFollow.html', context)
+
 
 @login_required
 def favorite_index(request):
@@ -148,6 +154,7 @@ def favorite_index(request):
     }
     return render(request, 'favorite.html', context)
 
+
 def page_not_found(request, exception=None):
     return render(
         request,
@@ -159,6 +166,7 @@ def page_not_found(request, exception=None):
 
 def server_error(request):
     return render(request, "misc/500.html", status=500)
+
 
 @login_required
 def profile_follow(request, username):
@@ -180,6 +188,7 @@ def profile_unfollow(request, username):
     ).delete()
     return redirect('follow')
 
+
 @login_required
 def cart(request):
     # Site cart.
@@ -187,6 +196,7 @@ def cart(request):
         'recipes': request.user.purchases.all(),
     }
     return render(request, 'shopList.html', context)
+
 
 def remove_recipe_from_cart(request, recipe_id):
     # Removes selected recipes from the cart.
@@ -203,8 +213,10 @@ def download(request):
         ).order_by(
             'item__ingredients__name'
         ).values(
-            'item__ingredients__name', 'item__ingredients__units_of_measurement')
-    data = data_not_sum.annotate(amount=Sum('item__recipe_ingredients__counts')).all()
+            'item__ingredients__name',
+        'item__ingredients__units_of_measurement')
+    data = data_not_sum.annotate(
+        amount=Sum('item__recipe_ingredients__counts')).all()
     return download_pdf(data)
 
 
