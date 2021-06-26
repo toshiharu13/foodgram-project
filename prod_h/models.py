@@ -8,6 +8,7 @@ from prod_h.serices import translate_rus_eng
 
 User = get_user_model()
 
+
 class ListOfIngridients(models.Model):
     # Таблица компонентов
     name = models.CharField(max_length=50,
@@ -22,6 +23,7 @@ class ListOfIngridients(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Teg(models.Model):
     name = models.CharField(max_length=20)
@@ -74,7 +76,6 @@ class Recipe(models.Model):
             )
         super().save(*args, **kwargs)
 
-
     class Meta:
         ordering = ["-pub_date"]
 
@@ -108,10 +109,11 @@ class Amount(models.Model):
         verbose_name='Рецепт',
     )
     counts = models.PositiveSmallIntegerField(verbose_name='количество',
-        default=1)
+                                              default=1)
 
     def __str__(self):
         return self.ingredient.name
+
 
 class Follow(models.Model):
     user = models.ForeignKey(
@@ -132,6 +134,7 @@ class Follow(models.Model):
             ]
         verbose_name_plural = "Подписка"
 
+
 class Cart(models.Model):
     item = models.ForeignKey(
         Recipe,
@@ -149,5 +152,3 @@ class Cart(models.Model):
                                     name='unique_purchase')
         ]
         verbose_name_plural = "Корзина"
-
-

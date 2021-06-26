@@ -13,4 +13,4 @@ router_v1.register('ingredients', ComponentsViewSet, basename='ingredients')
 
 
 urlpatterns = [
-    path('v1/', include(router_v1.urls)),]
+    path('v1/', include(router_v1.urls)), ]

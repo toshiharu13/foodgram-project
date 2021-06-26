@@ -4,13 +4,14 @@ from .models import (Amount, Cart, Favorite, Follow, ListOfIngridients, Recipe,
                      Teg)
 
 
-class TegAdmin(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin):
     list_display = ("pk", "name", "color")
     search_fields = ("name",)
     empty_value_display = "-пусто-"
 
+
 class ListOfIgridientsAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name","units_of_measurement",)
+    list_display = ("pk", "name", "units_of_measurement",)
     search_fields = ("name",)
     list_filter = ("name",)
     empty_value_display = "-пусто-"
@@ -21,16 +22,19 @@ class IngridientAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     empty_value_display = "-пусто-"
 
+
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name", "author", "time","pub_date")
+    list_display = ("pk", "name", "author", "time", "pub_date")
     search_fields = ("name",)
     list_filter = ("name",)
     empty_value_display = "-пусто-"
+
 
 class FollowAdmin(admin.ModelAdmin):
     list_display = ("author", "user", "pk")
     search_fields = ("author",)
     empty_value_display = "-пусто-"
+
 
 class FavoriteAdmin(admin.ModelAdmin):
     list_display = ("recipe", "user")
@@ -43,11 +47,11 @@ class CardAdmin(admin.ModelAdmin):
     search_fields = ("item",)
     empty_value_display = "-пусто-"
 
-admin.site.register(Teg, TegAdmin)
+
+admin.site.register(Teg, TagAdmin)
 admin.site.register(ListOfIngridients, ListOfIgridientsAdmin)
 admin.site.register(Amount, IngridientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Follow, FollowAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(Cart, CardAdmin)
-

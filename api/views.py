@@ -52,7 +52,6 @@ class FavoriteViewSet(CreateDestroyMethod):
     serializer_class = FavoriteSerializer
     lookup_field = 'recipe'
 
-
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         id = serializer.data['recipe']

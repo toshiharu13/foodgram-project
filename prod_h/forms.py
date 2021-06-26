@@ -7,7 +7,7 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ['name', 'time', 'text', 'image',]
+        fields = ['name', 'time', 'text', 'image', ]
 
     widgets = {
         'name': forms.TextInput(attrs={

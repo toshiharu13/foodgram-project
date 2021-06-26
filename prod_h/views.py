@@ -218,6 +218,3 @@ def download(request):
     data = data_not_sum.annotate(
         amount=Sum('item__recipe_ingredients__counts')).all()
     return download_pdf(data)
-
-
-
