@@ -1,5 +1,4 @@
 import importlib
-from decimal import Decimal
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -29,8 +28,7 @@ def get_ingredients(request, recipe):
         if 'nameIngredient' in key:
             name_of_ingredient = value
         if 'valueIngredient' in key:
-            # amount = Decimal(value.replace(',', '.'))
-            if value is None or value == 0 or value == '':
+            if not value:
                 value = 1
             amount = value
             ingredient = get_object_or_404(

@@ -38,7 +38,9 @@ letters = {
 
 
 def translate_rus_eng(text):
-    # Replacing Russian letters, english
+    """
+    Replacing Russian letters, english one
+    """
     symbols = [
         '+', '-', ';', '.', ',', '(', ')', '*',
         '=', '/', '"', "'", ':', '!', '?'

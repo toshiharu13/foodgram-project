@@ -54,9 +54,6 @@ class FavoriteViewSet(CreateDestroyMethod):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        id = serializer.data['recipe']
-        recipe = get_object_or_404(Recipe, id=id)
-        recipe.save()
 
     def destroy(self, request, *args, **kwargs):
         instance = get_object_or_404(Favorite,
@@ -103,8 +100,10 @@ class ComponentsViewSet(generics.ListAPIView, viewsets.GenericViewSet):
     serializer_class = ComponentsSerializer
 
     def get_queryset(self):
-        data = self.request.GET['query']
-        if data is not None:
-            queryset = ListOfIngridients.objects.filter(name__istartswith=data)
-            return queryset
+        if self.request.GET['query']:
+            data = self.request.GET['query']
+            if data is not None:
+                queryset = ListOfIngridients.objects.filter(
+                    name__istartswith=data)
+                return queryset
         return ListOfIngridients.objects.none()
