@@ -1,4 +1,4 @@
-import datetime as dt
+from foodgram.settings import POSTS_COUNT
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -14,7 +14,7 @@ from .forms import RecipeForm
 def index(request):
     tags = tags_filter(request)
     latest = Recipe.objects.filter(tags__name__in=tags).prefetch_related('tags').select_related('author').distinct()
-    paginator = Paginator(latest, 6)
+    paginator = Paginator(latest, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     all_tags = Teg.objects.all()
@@ -30,7 +30,7 @@ def index(request):
 def authors_recipes(request, username):
     author = get_object_or_404(User, username=username)
     user_recipe = author.recipes.all()
-    paginator = Paginator(user_recipe, 6)
+    paginator = Paginator(user_recipe, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     all_tags = Teg.objects.all()
@@ -123,7 +123,7 @@ def follow_index(request):
     # The subscriber page is displayed.
     author_list = request.user.follower.all()
 
-    paginator = Paginator(author_list, 6)
+    paginator = Paginator(author_list, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     context = {
@@ -142,7 +142,7 @@ def favorite_index(request):
         tags__name__in=tags
     ).prefetch_related('tags').select_related('author').distinct()
 
-    paginator = Paginator(recipe_list, 6)
+    paginator = Paginator(recipe_list, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     context = {
