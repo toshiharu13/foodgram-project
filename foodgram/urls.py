@@ -5,9 +5,6 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    # ссылки на кастомные страницы ошибок
-    path('500/', views.server_error, name='500'),
-    path('404/', views.page_not_found, name='404'),
     # регистрация и авторизация
     path('auth/', include('users.urls')),
     # если нужного шаблона для /auth не нашлось в файле users.urls —
