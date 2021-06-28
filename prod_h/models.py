@@ -62,7 +62,7 @@ class Recipe(models.Model):
         help_text='Игредиенты',)
     tags = models.ManyToManyField(Teg, )
     time = models.PositiveSmallIntegerField(verbose_name='Вермя приготовления')
-    pub_date = models.DateTimeField("date published", auto_now_add=True)
+    pub_date = models.DateTimeField('date published', auto_now_add=True)
     slug = models.SlugField(
         max_length=500,
         unique=True,
@@ -77,7 +77,7 @@ class Recipe(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ["-pub_date"]
+        ordering = ['-pub_date']
 
     def __str__(self):
         return self.name
@@ -105,7 +105,7 @@ class Amount(models.Model):
                                    related_name='ingridient_name', )
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE,
-        related_name="recipe_ingredients",
+        related_name='recipe_ingredients',
         verbose_name='Рецепт',
     )
     counts = models.PositiveSmallIntegerField(verbose_name='количество',
@@ -132,7 +132,7 @@ class Follow(models.Model):
             models.UniqueConstraint(fields=['user', 'author'],
                                     name='unique_subscription')
             ]
-        verbose_name_plural = "Подписка"
+        verbose_name_plural = 'Подписка'
 
 
 class Cart(models.Model):
@@ -151,4 +151,4 @@ class Cart(models.Model):
             models.UniqueConstraint(fields=['item', 'customer'],
                                     name='unique_purchase')
         ]
-        verbose_name_plural = "Корзина"
+        verbose_name_plural = 'Корзина'

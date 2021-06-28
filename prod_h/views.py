@@ -25,12 +25,12 @@ def index(request):
     page = paginator.get_page(page_number)
     all_tags = Teg.objects.all()
     context = {
-        "posts": latest,
-        "page": page,
+        'posts': latest,
+        'page': page,
         'paginator': paginator,
         'all_tags': all_tags,
     }
-    return render(request, "indexNotAuth.html", context=context)
+    return render(request, 'indexNotAuth.html', context=context)
 
 
 def authors_recipes(request, username):
@@ -46,7 +46,7 @@ def authors_recipes(request, username):
         'author': author,
         'all_tags': all_tags,
     }
-    return render(request, "authorRecipe.html", context=context)
+    return render(request, 'authorRecipe.html', context=context)
 
 
 def recipe_detail(request, recipe_id):
@@ -134,7 +134,7 @@ def follow_index(request):
     page = paginator.get_page(page_number)
     context = {
         'page': page,
-        "paginator": paginator
+        'paginator': paginator
     }
     return render(request, 'myFollow.html', context)
 
@@ -155,7 +155,7 @@ def favorite_index(request):
         'tags': tags,
         'all_tags': Teg.objects.all(),
         'page': page,
-        "paginator": paginator
+        'paginator': paginator
     }
     return render(request, 'favorite.html', context)
 

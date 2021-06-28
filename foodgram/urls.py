@@ -11,7 +11,7 @@ urlpatterns = [
     # ищем совпадения в файле django.contrib.auth.urls
     path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path('api/', include("api.urls")),
+    path('api/', include('api.urls')),
     # ссылки на информацию о сайте
     path('about-author/', views.AboutAuthor.as_view(), name='about_author'),
     path('about-tech/', views.AboutTech.as_view(), name='about_tech'),
