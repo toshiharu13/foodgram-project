@@ -7,7 +7,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from prod_h.models import Amount, ListOfIngridients
 
-module = importlib.import_module('.settings', 'foodgram-project')
+#module = importlib.import_module('.settings', 'foodgram-project')
+from foodgram.settings import TAGS
 from reportlab.pdfgen import canvas
 
 
@@ -15,7 +16,7 @@ def get_tags(request):
     # Get tags list
     tags_list = []
     for key in request.POST.keys():
-        if key in module.TAGS:
+        if key in TAGS:
             tags_list.append(key)
     return tags_list
 
@@ -44,7 +45,7 @@ def get_ingredients(request, recipe):
 
 def tags_filter(request):
     # Get actual tags
-    tags_list = request.GET.getlist('tag', module.TAGS)
+    tags_list = request.GET.getlist('tag', TAGS)
     return tags_list
 
 

@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 ]
 
-ROOT_URLCONF = 'foodgram-project.urls'
+ROOT_URLCONF = 'foodgram.urls'
 
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'foodgram-project.wsgi.application'
+WSGI_APPLICATION = 'foodgram.wsgi.application'
 
 
 # Database

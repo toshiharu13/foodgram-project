@@ -22,8 +22,8 @@ urlpatterns = [
 
 ]
 
-handler404 = 'foodgram-project.views.page_not_found'
-handler500 = 'foodgram-project.views.server_error'
+handler404 = 'foodgram.views.page_not_found'
+handler500 = 'foodgram.views.server_error'
 
 if settings.DEBUG:
     urlpatterns += static(
