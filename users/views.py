@@ -8,4 +8,4 @@ class SignUp(CreateView):
     form_class = CreationForm
     #  где login — это параметр "name" в path()
     success_url = reverse_lazy('login')
-    template_name = "reg.html"
+    template_name = "users/reg.html"

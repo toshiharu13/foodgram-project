@@ -14,39 +14,6 @@
     <div class="form-container">
         <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
-            <!--<div class="form__group">
-                <label for="id_first_name" class="form__label">Имя</label>
-                <div class="form__field-group">
-                    <input type="text" name="first_name" id="id_first_name" class="form__input">
-                    <span class="form__error"></span>
-                </div>
-            </div>
-            <div class="form__group">
-                <label for="id_username" class="form__label">Имя пользователя</label>
-                <div class="form__field-group">
-                    <input type="text" name="username" id="id_username" class="form__input">
-                    <span class="form__error">Имя пользователя и пароль не совпадают. Введите правильные данные.
-                    </span>
-                </div>
-            </div>
-            <div class="form__group">
-                <label for="id_email" class="form__label">Адрес электронной почты</label>
-                <div class="form__field-group">
-                    <input type="email" name="email" id="id_email" class="form__input">
-                    <span class="form__error"></span>
-                </div>
-            </div>
-            <div class="form__group">
-                <label for="id_password" class="form__label">Пароль</label>
-                <div class="form__field-group">
-                    <input type="password" name="password" id="id_password" class="form__input">
-                    <span class="form__error"></span>
-                </div>
-            </div>
-            <div class="form__footer">
-                <button class="button button_style_blue">Создать аккаунт</button>
-            </div>
-        </form>-->
                 <div class="form__group">
                     <label for="id_username" class="form__label">Имя пользователя</label>
                     <div class="form__field-group">
@@ -73,10 +40,6 @@
                         {% if form.password1.errors %}
                             <span class="form__error">{{ form.password1.errors }}</span>
                         {% endif %}
-                        <!--<span class="form__input-info">Ваш пароль не должен совпадать с вашим именем или другой персональной информацией или быть слишком похожим на неё.</span>
-                        <span class="form__input-info">Ваш пароль должен содержать как минимум 8 символов.</span>
-                        <span class="form__input-info">Ваш пароль не может быть одним из широко распространённых паролей.</span>
-                        <span class="form__input-info">Ваш пароль не может состоять только из цифр.</span>-->
 
 
                     </div>
