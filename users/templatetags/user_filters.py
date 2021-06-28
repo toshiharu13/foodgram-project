@@ -16,9 +16,10 @@ def follow_count(count):
 
 @register.filter
 def purchases_count(user):
-    if user.purchases.all().count() == 0:
+    card_data = user.purchases.all().count()
+    if card_data == 0:
         return ''
-    return user.purchases.all().count()
+    return card_data
 
 
 @register.filter
