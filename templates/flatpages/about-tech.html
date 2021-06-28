@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Технологии {% endblock %}
+{% load static %}
+{% block static_css %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
+{% block content %}
+
+<main class="main container">
+        <div class="main__header">
+            <h1 class="main__title">В проекте используется:</h1>
+        </div>
+    <ul style="list-style: none; font-size: 20px; height:50vh">
+        <li><a href="https://www.python.org">Python v3.8</a></li>
+        <li><a href="https://www.djangoproject.com">Django v3.2</a></li>
+        <li><a href="https://html.spec.whatwg.org/multipage/">HTML5</a></li>
+        <li><a href="https://www.w3.org/Style/CSS/">CSS3</a></li>
+        <li><a href="https://developer.mozilla.org/ru/docs/Web/JavaScript">JavaScript ES6</a></li>
+    </ul>
+</main>
+{% endblock %}

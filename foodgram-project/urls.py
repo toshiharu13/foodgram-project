@@ -15,10 +15,11 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('api/', include("api.urls")),
-    path('', include('prod_h.urls')),
     # ссылки на информацию о сайте
-    path('about-author/', include('django.contrib.flatpages.urls')),
-    path('about-tech/', include('django.contrib.flatpages.urls')),
+    path('about-author/', views.AboutAuthor.as_view(), name='about_author'),
+    path('about-tech/', views.AboutTech.as_view(), name='about_tech'),
+    path('', include('prod_h.urls')),
+
 ]
 
 handler404 = 'foodgram-project.views.page_not_found'

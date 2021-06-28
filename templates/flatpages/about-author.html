@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Об авторе {% endblock %}
+{% load static %}
+{% block static_css %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
+{% block content %}
+
+<main class="main container">
+        <div class="main__header">
+            <h1 class="main__title">Об авторе</h1>
+        </div>
+        <br>Меня зовут Бойко Алексей. Решил сменить профессию с поддержки второго уровня на бэкенд програмиста. Магия создания полезных вещей из нажатий клавишь поражала еще с детства, и, я всё таки решился =). Язык Python понравился своей лаконичностью и простотой.</br>
+        <br>Люблю командные военные игры, настольные игры и изучение средневековой японии периода воюющих провинций.</br>
+
+    <img src="/static/joharu.jpg" alt="Photo" width="250" height="400"/>
+    <h2>
+    Контакты
+    </h2>
+        <li><a href="https://github.com/toshiharu13">GitHub Boyko-Alexey</a></li>
+        <li>+7 962 705 89 06</li>
+
+</main>
+{% endblock %}
