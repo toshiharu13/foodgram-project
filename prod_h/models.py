@@ -61,7 +61,7 @@ class Recipe(models.Model):
         verbose_name='Игредиенты',
         help_text='Игредиенты',)
     tags = models.ManyToManyField(Teg, )
-    time = models.IntegerField(verbose_name='Вермя приготовления')
+    time = models.PositiveSmallIntegerField(verbose_name='Вермя приготовления')
     pub_date = models.DateTimeField("date published", auto_now_add=True)
     slug = models.SlugField(
         max_length=500,
