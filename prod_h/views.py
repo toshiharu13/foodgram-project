@@ -85,7 +85,6 @@ def recipe_edit(request, recipe_id):
                       instance=instance)
     if form.is_valid():
         recipe = form.save(commit=False)
-        recipe.pub_date = dt.datetime.now()
         recipe.tags.clear()
         recipe.save()
         # Adds tags to the recipe
