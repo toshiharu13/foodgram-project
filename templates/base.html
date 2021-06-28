@@ -18,11 +18,10 @@
   <main class="main container">
           <div class="main__header">
               {% block content %}
-              <!-- Содержимое страницы -->
               {% endblock %}
           </div>
           {% if page.has_other_pages %}
-              {% include "includes/paginator.html" with page=page paginator=paginator%}
+              {% include "includes/paginator.html" with page=page paginator=paginator %}
           {% endif %}
   </main>
 {% include 'includes/footer.html' %}

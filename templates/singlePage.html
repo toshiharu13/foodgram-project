@@ -3,60 +3,59 @@
 {% load static %}
 {% load user_filters %}
 {% block static_css %}<link rel="stylesheet" href="{% static 'pages/single.css' %}">{% endblock %}
-    {%block content%}
+    {% block content %}
     <main class="main container">
-        <div class="single-card" data-id="{{recipe.id}}" data-author="{{recipe.author.id}}">
+        <div class="single-card" data-id="{{ recipe.id }}" data-author="{{ recipe.author.id }}">
             {% load thumbnail %}
             {% thumbnail recipe.image "480x480" crop="center" upscale=True as img %}
             <a href="#" class="link" target="_blank"><img src="{{ img.url }}" alt="{{ post.name }}" class="card__image"></a>
             {% endthumbnail %}
             <div class="single-card__info">
                 <div class="single-card__header-info">
-                    <h1 class="single-card__title">{{recipe.name}}</h1>
+                    <h1 class="single-card__title">{{ recipe.name }}</h1>
                     {% if user.is_authenticated %}
                         {% csrf_token %}
                     <div class="single-card__favorite">
                        {% include "includes/fav_but.html" %}
                     </div>
-                    {%endif%}
+                    {% endif %}
                 </div>
                 <ul class="single-card__items">
                 {%include "includes/tag.html" with post=recipe %}
                 </ul>
                 <div class="single-card__items single-card__items_column">
-                    <p class="single-card__text"><span class="icon-time"></span>{{recipe.time}}</p>
+                    <p class="single-card__text"><span class="icon-time"></span>{{ recipe.time }}</p>
                     <ul class="single-card__items">
-                        <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span>{{recipe.author}}</p></li>
+                        <li class="single-card__item"><p class="single-card__text"><span class="icon-user"></span>{{ recipe.author }}</p></li>
                         {% if user.is_authenticated and user == recipe.author or user.is_superuser %}
                         <li class="single-card__item">  <a style="margin-left: 2.5em" href="{% url 'recipe_edit' recipe.id %}" class="single-card__text">Редактировать рецепт</a></li>
-                        {%endif%}
+                        {% endif %}
                     </ul>
                 </div>
                 {% csrf_token %}
-                <ul class="single-card__items" data-author="{{recipe.author.id}}">
+                <ul class="single-card__items" data-author="{{ recipe.author.id }}">
                     {% if user.is_authenticated %}
                         {% if user|bought_to:recipe %}
                             <li class="single-card__item"><button class="button button_style_blue" name="purchases"><span class="icon-plus"></span> Рецепт добавлен</button></li>
-                            <!--<a href="{% url 'profile_follow' recipe.author %}">-->
                         {% else %}
                             <li class="single-card__item"><button class="button button_style_blue" name="purchases" data-out><span class="icon-plus"></span> Добавить в покупки</button></li>
                         {% endif %}
                         {% include "includes/foll_but.html" %}
 
                     </a>
-                    {%endif%}
+                    {% endif %}
                 </ul>
                 <div class="single-card__section">
                     <h3 class="single-card__section-title">Ингредиенты:</h3>
                     <div class="single-card__items single-card__items_column">
-                        {%for ingr in recipe.recipe_ingredients.all%}
-                          <p class=" single-card__section-item">{{ingr.ingredient}} - {{ingr.counts}}</p>
-                        {%endfor%}
+                        {% for ingr in recipe.recipe_ingredients.all %}
+                          <p class=" single-card__section-item">{{ ingr.ingredient }} - {{ ingr.counts }}</p>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="single-card__section">
                     <h3 class="single-card__section-title">Описание:</h3>
-                    <p class=" single-card__section-text">{{recipe.text}}</p>
+                    <p class=" single-card__section-text">{{ recipe.text }}</p>
                 </div>
             </div>
         </div>
@@ -72,4 +71,4 @@
 
 <script src="{% static 'js/api/Api.js' %}"></script>
 <script src="{% static 'singlePage.js' %}"></script>
-{%endblock%}}
+{% endblock %}

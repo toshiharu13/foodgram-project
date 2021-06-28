@@ -1,5 +1,4 @@
-<div class="card" data-id="{{recipe.id}}">
-      <!-- Отображение картинки -->
+<div class="card" data-id="{{ recipe.id }}">
       {% load thumbnail %}
       {% load user_filters %}
       {% load static %}
@@ -7,16 +6,16 @@
         <a href="{% url 'recipe_detail' post.id %}" class="link" target="_blank"><img src="{{ img.url }}" alt="{{ post.name }}" class="card__image"></a>
       {% endthumbnail %}
         <div class="card__body" >
-            <a class="card__title link" href="{% url 'recipe_detail' post.id %}" target="_blank">{{post.name}}</a>
+            <a class="card__title link" href="{% url 'recipe_detail' post.id %}" target="_blank">{{ post.name }}</a>
             <ul class="card__items">
-                {%include "includes/tag.html"%}
+                {% include "includes/tag.html" %}
             </ul>
             <div class="card__items card__items_column">
-                <p class="card__text"><span class="icon-time"></span> {{post.time}} мин.</p>
-                <p class="card__text"><span class="icon-user"></span> <a href="{%url 'authors-recipes' username=post.author.username %}" style="color: black">{{post.author.username}}</a></p>
+                <p class="card__text"><span class="icon-time"></span> {{ post.time }} мин.</p>
+                <p class="card__text"><span class="icon-user"></span> <a href="{% url 'authors-recipes' username=post.author.username %}" style="color: black">{{ post.author.username }}</a></p>
             </div>
         </div>
-        <div class="card__footer" data-author="{{post.author.id}}">
+        <div class="card__footer" data-author="{{ post.author.id }}">
             {% if user.is_authenticated %}
                {% csrf_token %}
               {% if user|bought_to:recipe %}
@@ -31,7 +30,7 @@
 
 
               {% include "includes/fav_but.html" with recipe=recipe %}
-            {%endif%}
+            {% endif %}
         </div>
     </div>
 <script src="{% static 'js/components/MainCards.js' %}"></script>

@@ -9,18 +9,17 @@
 {% block content %}
 <main class="main container">
     <div class="main__header">
-        {%if next%}
+        {% if next %}
          <div class="alert alert-info" role="alert">
               Вы обратились к странице, доступ к которой возможен
               только для залогиненных пользователей.<br>
               Пожалуйста, авторизуйтесь.
             </div>
-        {%else%}
+        {% else %}
         <h1 class="main__title">Войти на сайт</h1>
-        {%endif%}
+        {% endif %}
     </div>
     <div class="form-container">
-        <!--<form class="form">-->
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form__group">
@@ -36,7 +35,7 @@
                     <input type="password" name="password" id="id_password" class="form__input">
                     {% if form.errors %}
                     <span class="form__error">Имя пользователя и пароль не совпадают. Введите правильные данные.</span>
-                    {%endif%}
+                    {% endif %}
                 </div>
             </div>
             <div class="form__footer">
@@ -46,4 +45,4 @@
         </form>
     </div>
 </main>
-{%endblock%}
+{% endblock %}
