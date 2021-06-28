@@ -13,7 +13,13 @@ from .forms import RecipeForm
 
 def index(request):
     tags = tags_filter(request)
-    latest = Recipe.objects.filter(tags__name__in=tags).prefetch_related('tags').select_related('author').distinct()
+    latest = Recipe.objects.filter(
+        tags__name__in=tags
+    ).prefetch_related(
+        'tags'
+    ).select_related(
+        'author'
+    ).distinct()
     paginator = Paginator(latest, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
