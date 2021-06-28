@@ -155,19 +155,6 @@ def favorite_index(request):
     return render(request, 'favorite.html', context)
 
 
-def page_not_found(request, exception=None):
-    return render(
-        request,
-        "misc/404.html",
-        {"path": request.path},
-        status=404
-    )
-
-
-def server_error(request):
-    return render(request, "misc/500.html", status=500)
-
-
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
