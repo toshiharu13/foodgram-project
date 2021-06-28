@@ -35,3 +35,11 @@ def fav_to(user, recipe):
 @register.filter
 def foll_to(user, recipe):
     return user.follower.filter(user=user, author=recipe.author).exists()
+
+
+@register.filter
+def create_or_change(edit):
+    if edit:
+        return 'Редактирование рецепта'
+    else:
+        return 'Создание Рецепта'

@@ -24,7 +24,7 @@ class IngridientAdmin(admin.ModelAdmin):
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name", "author", "time", "pub_date")
+    list_display = ("pk", "name", "author", "time", "pub_date", "slug")
     search_fields = ("name",)
     list_filter = ("name",)
     empty_value_display = "-пусто-"
