@@ -102,7 +102,7 @@ class Favorite(models.Model):
 class Amount(models.Model):
     ingredient = models.ForeignKey(ListOfIngridients,
                                    on_delete=models.CASCADE,
-                                   related_name='ingridient_name', )
+                                   related_name='ingridient_names', )
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE,
         related_name='recipe_ingredients',
