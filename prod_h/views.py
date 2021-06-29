@@ -6,7 +6,7 @@ from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect, render
 
 from prod_h.models import Amount, Cart, Follow, Recipe, Tag, User
-from prod_h.utils import download_pdf, get_ingredients, get_tags, tags_filter
+from prod_h.utils import download_pdf, tags_filter
 
 from .forms import RecipeForm
 
@@ -62,18 +62,7 @@ def new_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None,
                       initial={'author': request.user})
     if form.is_valid():
-        instance = form.save(commit=False)
-        instance.author = request.user
-        form.save()
-        # Adds tags to the recipe
-        for name_tag in get_tags(request):
-            tag_from_bd = get_object_or_404(Tag, name=name_tag)
-            instance.tags.add(tag_from_bd.id)
-        # Adds ingredients to the recipe
-        list_of_ingredients = get_ingredients(request, instance)
-        for ingr in list_of_ingredients:
-            instance.ingredients.add(ingr)
-
+        form.save(request=request)
         return redirect('index')
     return render(request, 'formRecipe.html', {'form': form})
 
@@ -89,20 +78,10 @@ def recipe_edit(request, recipe_id):
     form = RecipeForm(request.POST or None,
                       files=request.FILES or None,
                       instance=instance)
+    instance.tags.clear()
+    Amount.objects.filter(recipe=instance).delete()
     if form.is_valid():
-        recipe = form.save(commit=False)
-        recipe.tags.clear()
-        recipe.save()
-        # Adds tags to the recipe
-        for name_tag in get_tags(request):
-            tag = get_object_or_404(Tag, name=name_tag)
-            recipe.tags.add(tag.id)
-
-        Amount.objects.filter(recipe=recipe).delete()
-        # Adds ingredients to the recipe
-        list_of_ingredients = get_ingredients(request, recipe)
-        for ingr in list_of_ingredients:
-            recipe.ingredients.add(ingr)
+        form.save(request=request)
         return redirect('index')
     context = {
         'edit': edit,
