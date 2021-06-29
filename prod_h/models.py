@@ -25,7 +25,7 @@ class ListOfIngridients(models.Model):
         return self.name
 
 
-class Teg(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(unique=True)
     color = models.CharField(
@@ -60,7 +60,7 @@ class Recipe(models.Model):
         through_fields=('recipe', 'ingredient'),
         verbose_name='Игредиенты',
         help_text='Игредиенты',)
-    tags = models.ManyToManyField(Teg, )
+    tags = models.ManyToManyField(Tag, )
     time = models.PositiveSmallIntegerField(verbose_name='Вермя приготовления')
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     slug = models.SlugField(

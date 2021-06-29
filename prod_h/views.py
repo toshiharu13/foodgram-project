@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect, render
 
-from prod_h.models import Amount, Cart, Follow, Recipe, Teg, User
+from prod_h.models import Amount, Cart, Follow, Recipe, Tag, User
 from prod_h.utils import download_pdf, get_ingredients, get_tags, tags_filter
 
 from .forms import RecipeForm
@@ -23,7 +23,7 @@ def index(request):
     paginator = Paginator(latest, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    all_tags = Teg.objects.all()
+    all_tags = Tag.objects.all()
     context = {
         'posts': latest,
         'page': page,
@@ -39,7 +39,7 @@ def authors_recipes(request, username):
     paginator = Paginator(user_recipe, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    all_tags = Teg.objects.all()
+    all_tags = Tag.objects.all()
     context = {
         'page': page,
         'paginator': paginator,
@@ -67,7 +67,7 @@ def new_recipe(request):
         form.save()
         # Adds tags to the recipe
         for name_tag in get_tags(request):
-            tag_from_bd = get_object_or_404(Teg, name=name_tag)
+            tag_from_bd = get_object_or_404(Tag, name=name_tag)
             instance.tags.add(tag_from_bd.id)
         # Adds ingredients to the recipe
         list_of_ingredients = get_ingredients(request, instance)
@@ -95,7 +95,7 @@ def recipe_edit(request, recipe_id):
         recipe.save()
         # Adds tags to the recipe
         for name_tag in get_tags(request):
-            tag = get_object_or_404(Teg, name=name_tag)
+            tag = get_object_or_404(Tag, name=name_tag)
             recipe.tags.add(tag.id)
 
         Amount.objects.filter(recipe=recipe).delete()
@@ -153,7 +153,7 @@ def favorite_index(request):
     page = paginator.get_page(page_number)
     context = {
         'tags': tags,
-        'all_tags': Teg.objects.all(),
+        'all_tags': Tag.objects.all(),
         'page': page,
         'paginator': paginator
     }

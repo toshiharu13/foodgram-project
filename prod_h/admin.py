@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (Amount, Cart, Favorite, Follow, ListOfIngridients, Recipe,
-                     Teg)
+                     Tag)
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -48,7 +48,7 @@ class CardAdmin(admin.ModelAdmin):
     empty_value_display = "-пусто-"
 
 
-admin.site.register(Teg, TagAdmin)
+admin.site.register(Tag, TagAdmin)
 admin.site.register(ListOfIngridients, ListOfIgridientsAdmin)
 admin.site.register(Amount, IngridientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
