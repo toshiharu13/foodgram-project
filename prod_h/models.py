@@ -24,6 +24,10 @@ class ListOfIngridients(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Список продуктов'
+        verbose_name_plural = 'Список продуктов'
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=20, verbose_name='Название Тега')
@@ -36,6 +40,10 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
 
 class Recipe(models.Model):
@@ -67,7 +75,7 @@ class Recipe(models.Model):
         help_text='Игредиенты',)
     tags = models.ManyToManyField(Tag, verbose_name='Название Тега')
     time = models.PositiveSmallIntegerField(verbose_name='Вермя приготовления')
-    pub_date = models.DateTimeField('date published', auto_now_add=True)
+    pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
     slug = models.SlugField(
         max_length=500,
         unique=True,
@@ -84,6 +92,8 @@ class Recipe(models.Model):
 
     class Meta:
         ordering = ['-pub_date']
+        verbose_name = 'Рецепт'
+        verbose_name_plural = 'Рецепты'
 
     def __str__(self):
         return self.name
@@ -106,6 +116,10 @@ class Favorite(models.Model):
     def __str__(self):
         return f'{self.user} - {self.recipe}'
 
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'
+
 
 class Amount(models.Model):
     ingredient = models.ForeignKey(
@@ -125,6 +139,10 @@ class Amount(models.Model):
 
     def __str__(self):
         return self.ingredient.name
+
+    class Meta:
+        verbose_name = 'Ингридиент для рецепта'
+        verbose_name_plural = 'Ингридиенты для рецепта'
 
 
 class Follow(models.Model):
@@ -147,6 +165,7 @@ class Follow(models.Model):
                 fields=['user', 'author'],
                 name='unique_subscription')
             ]
+        verbose_name = 'Подписка'
         verbose_name_plural = 'Подписка'
 
 
@@ -160,7 +179,7 @@ class Cart(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='purchases',
-        verbose_name='В чью карзину положен рецепт',
+        verbose_name='В чью корзину положен рецепт',
     )
 
     class Meta:
@@ -168,4 +187,5 @@ class Cart(models.Model):
             models.UniqueConstraint(fields=['item', 'customer'],
                                     name='unique_purchase')
         ]
+        verbose_name = 'Корзина'
         verbose_name_plural = 'Корзина'
