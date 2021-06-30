@@ -2,7 +2,7 @@ from django import forms
 from django.shortcuts import get_object_or_404
 
 from .models import Recipe, Tag
-from .utils import get_tags, get_ingredients
+from .utils import get_ingredients, get_tags
 
 
 class RecipeForm(forms.ModelForm):

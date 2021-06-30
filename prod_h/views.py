@@ -1,10 +1,9 @@
-from foodgram.settings import POSTS_COUNT
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect, render
 
+from foodgram.settings import POSTS_COUNT
 from prod_h.models import Amount, Cart, Follow, Recipe, Tag, User
 from prod_h.utils import download_pdf, tags_filter
 
