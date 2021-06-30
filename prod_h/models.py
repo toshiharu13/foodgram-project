@@ -21,12 +21,12 @@ class ListOfIngridients(models.Model):
                                             help_text='Макс. 20 симоволов',
                                             )
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         verbose_name = 'Список продуктов'
         verbose_name_plural = 'Список продуктов'
+
+    def __str__(self):
+        return self.name
 
 
 class Tag(models.Model):
@@ -38,12 +38,12 @@ class Tag(models.Model):
         blank=True
     )
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
+
+    def __str__(self):
+        return self.name
 
 
 class Recipe(models.Model):
@@ -83,13 +83,6 @@ class Recipe(models.Model):
         verbose_name='Слаг рецепта',
     )
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = translate_rus_eng(self.name) + '_' + datetime.strftime(
-                timezone.now(), '%d_%m_%y_%H_%M_%S_%s'
-            )
-        super().save(*args, **kwargs)
-
     class Meta:
         ordering = ['-pub_date']
         verbose_name = 'Рецепт'
@@ -97,6 +90,13 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = translate_rus_eng(self.name) + '_' + datetime.strftime(
+                timezone.now(), '%d_%m_%y_%H_%M_%S_%s'
+            )
+        super().save(*args, **kwargs)
 
 
 class Favorite(models.Model):
@@ -113,12 +113,12 @@ class Favorite(models.Model):
         verbose_name='Рецепт для избранного',
     )
 
-    def __str__(self):
-        return f'{self.user} - {self.recipe}'
-
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+
+    def __str__(self):
+        return f'{self.user} - {self.recipe}'
 
 
 class Amount(models.Model):
@@ -137,12 +137,12 @@ class Amount(models.Model):
         verbose_name='количество',
         default=1)
 
-    def __str__(self):
-        return self.ingredient.name
-
     class Meta:
         verbose_name = 'Ингридиент для рецепта'
         verbose_name_plural = 'Ингридиенты для рецепта'
+
+    def __str__(self):
+        return self.ingredient.name
 
 
 class Follow(models.Model):
