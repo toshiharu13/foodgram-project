@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from api.serializers import (ComponentsSerializer, FavoriteSerializer,
                              FollowSerializer, PurchasesSerializer)
-from prod_h.models import Cart, Favorite, Follow, ListOfIngridients, Recipe
+from prod_h.models import Cart, Favorite, Follow, ListOfIngridients
 
 
 class CreateDestroyMethod(
@@ -100,10 +100,12 @@ class ComponentsViewSet(generics.ListAPIView, viewsets.GenericViewSet):
     serializer_class = ComponentsSerializer
 
     def get_queryset(self):
-        if self.request.GET['query']:
-            data = self.request.GET['query']
-            if data is not None:
-                queryset = ListOfIngridients.objects.filter(
-                    name__istartswith=data)
-                return queryset
+        query = self.request.query_params
+        if not query:
+            return ListOfIngridients.objects.none()
+        data = self.request.GET['query']
+        if data is not None:
+            queryset = ListOfIngridients.objects.filter(
+                name__istartswith=data)
+            return queryset
         return ListOfIngridients.objects.none()
