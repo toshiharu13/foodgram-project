@@ -1,6 +1,4 @@
 .git/*
-env/
-venv/
 
 __pycache__/
 *.py[cod]
@@ -16,10 +14,15 @@ __pycache__/
 
 media/
 
-# Environments
-.env
-.idea
-
 # Django db:
 db.sqlite3
 db.sqlite3-journal
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
