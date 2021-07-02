@@ -19,3 +19,4 @@ reportlab==3.5.67
 sorl-thumbnail==12.7.0
 sqlparse==0.4.1
 toml==0.10.2
+psycopg2-binary==2.8.5
