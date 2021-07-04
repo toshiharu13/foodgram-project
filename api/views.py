@@ -105,7 +105,6 @@ class ComponentsViewSet(generics.ListAPIView, viewsets.GenericViewSet):
             return ListOfIngridients.objects.none()
         data = self.request.GET['query']
         if data is not None:
-            queryset = ListOfIngridients.objects.filter(
+            return ListOfIngridients.objects.filter(
                 name__istartswith=data)
-            return queryset
         return ListOfIngridients.objects.none()

@@ -32,17 +32,16 @@ def get_ingredients(request, recipe):
                 ListOfIngridients, name=name_of_ingredient
             )
             Amount.objects.get_or_create(
-                    ingredient=ingredient,
-                    recipe=recipe,
-                    counts=amount)[0]
+                ingredient=ingredient,
+                recipe=recipe,
+                counts=amount)[0]
             ist_of_ingredients.append(ingredient)
     return ist_of_ingredients
 
 
 def tags_filter(request):
     # Get actual tags
-    tags_list = request.GET.getlist('tag', TAGS)
-    return tags_list
+    return request.GET.getlist('tag', TAGS)
 
 
 def download_pdf(data):

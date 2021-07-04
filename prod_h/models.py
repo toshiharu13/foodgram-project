@@ -164,7 +164,7 @@ class Follow(models.Model):
             models.UniqueConstraint(
                 fields=['user', 'author'],
                 name='unique_subscription')
-            ]
+        ]
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписка'
 
