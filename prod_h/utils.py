@@ -58,8 +58,8 @@ def download_pdf(data):
     p.drawString(100, 800, "Список продуктов:")
     x, y = 10, 780
     for item in data:
-        p.drawString(x, y, item.get('item__ingredients__name')
-                     + ' ' + '(' + item.get(
+        p.drawString(x, y, item.get(
+            'item__ingredients__name') + ' ' + '(' + item.get(
             'item__ingredients__units_of_measurement'
         ) + ')' + ' - ' + str(item.get('amount')))
         y -= 15
