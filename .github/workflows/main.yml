@@ -59,7 +59,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE_FOR_SSH }}
           # stack_file_name: docker-compose.yaml
           script: |
-            sudo docker pull ${{ secrets.KEY_FOR_DOCKER }}/web_for_diplom:final
+            sudo docker pull ${{ secrets.KEY_FOR_DOCKER }}/web_for_diplom
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
