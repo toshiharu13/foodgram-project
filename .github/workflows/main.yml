@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v2 # Выполняет push образа в DockerHub
         with:
           push: true
-          tags: ${{ secrets.KEY_FOR_DOCKER }}/web_for_diplom:final
+          tags: ${{ secrets.KEY_FOR_DOCKER }}/web_for_diplom
 
   deploy:
     runs-on: ubuntu-latest
