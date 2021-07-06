@@ -37,6 +37,11 @@ class Tag(models.Model):
         verbose_name='Цвет тега',
         blank=True
     )
+    display_name = models.CharField(
+        max_length=50,
+        verbose_name='Название тега для HTML',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Тег'

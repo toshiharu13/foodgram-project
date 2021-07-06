@@ -9,7 +9,7 @@
         {% if tag.name in request.GET|parse_tags %}tags__checkbox_active{% endif %}"
           href="{{ request.path }}?{{ request|set_tag_qs:tag}}">
       </a>
-      <span class="tags__label">{{ tag.name }}</span>
+      <span class="tags__label">{{ tag.display_name }}</span>
     </li>
   {% endfor %}
 </ul>
