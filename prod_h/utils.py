@@ -66,8 +66,8 @@ def download_pdf(data):
         p.showPage()
         p.save()
         return response
-    
-    
+
+
 def check(request, form):
     for key, value in request.POST.items():
         if 'valueIngredient' in key:
