@@ -79,10 +79,11 @@ def recipe_edit(request, recipe_id):
     form = RecipeForm(request.POST or None,
                       files=request.FILES or None,
                       instance=instance)
-    instance.tags.clear()
-    Amount.objects.filter(recipe=instance).delete()
+
     check(request, form)
     if form.is_valid():
+        instance.tags.clear()
+        Amount.objects.filter(recipe=instance).delete()
         form.save(request=request)
         return redirect('index')
     context = {

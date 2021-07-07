@@ -35,5 +35,5 @@ class RecipeForm(forms.ModelForm):
         # Adds ingredients to the recipe
         list_of_ingredients = get_ingredients(request, instance)
         for ingr in list_of_ingredients:
-            instance.ingredients.add(ingr)
+            instance.ingredients.add(ingr.ingredient)
         return instance

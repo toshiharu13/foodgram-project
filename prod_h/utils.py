@@ -31,11 +31,11 @@ def get_ingredients(request, recipe):
             ingredient = get_object_or_404(
                 ListOfIngridients, name=name_of_ingredient
             )
-            Amount.objects.get_or_create(
+            ingredient_for_list = Amount.objects.get_or_create(
                 ingredient=ingredient,
                 recipe=recipe,
                 counts=amount)[0]
-            ist_of_ingredients.append(ingredient)
+            ist_of_ingredients.append(ingredient_for_list)
     return ist_of_ingredients
 
 
@@ -71,7 +71,9 @@ def download_pdf(data):
 def check(request, form):
     for key, value in request.POST.items():
         if 'valueIngredient' in key:
-            amount = value
-            if int(amount) < 1:
-                form.add_error(None,
-                               "Количество ингредиента должно быть больше 0.")
+            if value:
+                amount = value
+                if int(amount) < 1:
+                    form.add_error(None,
+                                   "Количество ингредиента должно быть больше 0")
+
