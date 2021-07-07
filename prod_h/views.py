@@ -8,6 +8,7 @@ from prod_h.models import Amount, Cart, Follow, Recipe, Tag, User
 from prod_h.utils import download_pdf, tags_filter
 
 from .forms import RecipeForm
+from .utils import check
 
 
 def index(request):
@@ -60,6 +61,7 @@ def recipe_detail(request, recipe_id):
 def new_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None,
                       initial={'author': request.user})
+    check(request, form)
     if form.is_valid():
         form.save(request=request)
         return redirect('index')
@@ -79,6 +81,7 @@ def recipe_edit(request, recipe_id):
                       instance=instance)
     instance.tags.clear()
     Amount.objects.filter(recipe=instance).delete()
+    check(request, form)
     if form.is_valid():
         form.save(request=request)
         return redirect('index')

@@ -66,3 +66,13 @@ def download_pdf(data):
         p.showPage()
         p.save()
         return response
+    
+    
+def check(request, form):
+    for key, value in request.POST.items():
+        if 'valueIngredient' in key:
+            amount = value
+            if int(amount) < 1:
+                form.add_error(None,
+                               "Количество ингредиента должно быть больше 0.")
+
