@@ -75,5 +75,4 @@ def check(request, form):
                 amount = value
                 if int(amount) < 1:
                     form.add_error(None,
-                                   "Количество ингредиента должно быть больше 0")
-
+                                   "Ингредиентов должно быть больше нуля")
