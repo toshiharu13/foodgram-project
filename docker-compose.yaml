@@ -12,7 +12,8 @@ services:
     env_file:
         - ./.env
   web:
-    image: toshiharu13/web_for_diplom
+    #image: toshiharu13/web_for_diplom
+    build: .
     restart: always
     depends_on:
         - db

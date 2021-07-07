@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
 
@@ -140,7 +141,8 @@ class Amount(models.Model):
     )
     counts = models.PositiveSmallIntegerField(
         verbose_name='количество',
-        default=1)
+        validators=[MinValueValidator(1, message='Должно быть больше нуля')],
+    )
 
     class Meta:
         verbose_name = 'Ингридиент для рецепта'
