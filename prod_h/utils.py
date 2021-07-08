@@ -63,9 +63,9 @@ def download_pdf(data):
             'item__ingredients__units_of_measurement'
         ) + ')' + ' - ' + str(item.get('amount')))
         y -= 15
-        p.showPage()
-        p.save()
-        return response
+    p.showPage()
+    p.save()
+    return response
 
 
 def check(request, form):
