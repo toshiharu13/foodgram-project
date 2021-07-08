@@ -20,7 +20,7 @@
         {% endif %}
     </div>
     <div class="form-container">
-        <form method="post" action="{% url 'login' %}">
+        <form class="form" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form__group">
                 <label for="{{ form.username.id_for_label }}" class="form__label">Имя</label>

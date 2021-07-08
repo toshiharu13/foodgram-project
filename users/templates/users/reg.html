@@ -3,7 +3,6 @@
 {% load static %}
 {% block static_css %}
     <link rel="stylesheet" href="{% static 'pages/form.css' %}">
-    <link rel="stylesheet" href="./pages/form.css">
 {% endblock %}
 
 {% block content %}
@@ -12,7 +11,7 @@
         <h1 class="main__title">Регистрация</h1>
     </div>
     <div class="form-container">
-        <form method="post" action="{% url 'signup' %}">
+        <form class="form" method="post" action="{% url 'signup' %}">
             {% csrf_token %}
                 <div class="form__group">
                     <label for="id_username" class="form__label">Имя пользователя</label>
@@ -23,6 +22,7 @@
                         {% endif %}
                     </div>
                 </div>
+
                 <div class="form__group">
                     <label for="id_email" class="form__label">Адрес электронной почты</label>
                     <div class="form__field-group">
@@ -30,9 +30,9 @@
                         {% if form.email.errors %}
                             <span class="form__error">{{ form.email.errors }}</span>
                         {% endif %}
-
                     </div>
                 </div>
+
                 <div class="form__group">
                     <label for="id_password1" class="form__label">Пароль</label>
                     <div class="form__field-group">
@@ -40,10 +40,9 @@
                         {% if form.password1.errors %}
                             <span class="form__error">{{ form.password1.errors }}</span>
                         {% endif %}
-
-
                     </div>
                 </div>
+
                 <div class="form__group">
                     <label for="id_password2" class="form__label">Повторите пароль</label>
                     <div class="form__field-group">
@@ -51,13 +50,14 @@
                         {% if form.password2.errors %}
                             <span class="form__error">{{ form.password2.errors }}</span>
                         {% endif %}
-
                     </div>
                 </div>
+
                 <div class="form__footer">
                     <button type="submit" class="button button_style_blue">Создать аккаунт</button>
                 </div>
-            </form>
+
+        </form>
     </div>
 </main>
 {%endblock%}
