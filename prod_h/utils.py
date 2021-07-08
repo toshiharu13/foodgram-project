@@ -69,6 +69,7 @@ def download_pdf(data):
 
 
 def check(request, form):
+    tags = False
     for key, value in request.POST.items():
         if 'valueIngredient' in key:
             if value:
@@ -76,3 +77,7 @@ def check(request, form):
                 if int(amount) < 1:
                     form.add_error(None,
                                    "Ингредиентов должно быть больше нуля")
+        if key in TAGS:
+            tags = True
+    if not tags:
+        form.add_error(None, "Необходимо выбрать тип приёма пищи!")
