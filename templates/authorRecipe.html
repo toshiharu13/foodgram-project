@@ -17,7 +17,7 @@
 
         <div class="author-subscribe"  data-author={{ author.id }}>
           {% if user.is_authenticated %}
-            {% if user|foll_to:recipe %}
+            {% if user|foll_to:author %}
                 <p class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe">Вы подписаны</button></p>
             {% else %}
                 <p class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></p>

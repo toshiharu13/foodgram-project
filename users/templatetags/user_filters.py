@@ -33,8 +33,8 @@ def fav_to(user, recipe):
 
 
 @register.filter
-def foll_to(user, recipe):
-    return user.follower.filter(user=user, author=recipe.author).exists()
+def foll_to(user, author):
+    return user.follower.filter(author=author).exists()
 
 
 @register.filter

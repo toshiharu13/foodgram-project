@@ -1,5 +1,5 @@
 {% load user_filters %}
-{% if user|foll_to:recipe %}
+{% if user|foll_to:recipe.author %}
     <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe">Вы подписаны</button></li>
 {% else %}
     <li class="single-card__item"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></li>
