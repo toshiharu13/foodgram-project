@@ -1,9 +1,9 @@
 {% for tag in post.tags.all %}
     {% if tag.name == 'breakfast' %}
-        <li class="card__item"><span class="badge badge_style_orange">Завтрак</span></li>
+        <li class="card__item"><span class="badge badge_style_{{tag.color}}">{{tag.display_name}}</span></li>
     {% elif tag.name == 'lunch' %}
-        <li class="card__item"><span class="badge badge_style_green">Обед</span></li>
+        <li class="card__item"><span class="badge badge_style_{{tag.color}}">{{tag.display_name}}</span></li>
     {% elif tag.name == 'dinner' %}
-        <li class="card__item"><span class="badge badge_style_purple">Ужин</span></li>
+        <li class="card__item"><span class="badge badge_style_{{tag.color}}">{{tag.display_name}}</span></li>
     {% endif %}
 {% endfor %}
