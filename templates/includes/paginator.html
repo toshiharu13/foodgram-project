@@ -1,33 +1,46 @@
-  {% if page.has_other_pages %}
+{% load tags_filters %}
+{% if page.has_other_pages %}
+  <ul class="pagination" aria-label="Search results pages">
     <nav class="pagination" aria-label="Search results pages">
-    <ul class="pagination__container">
-      {% if page.has_previous %}
-          <li class="pagination__item">
-            <a class="pagination__link link" href="?page={{ page.previous_page_number }}"><span class="icon-left"></span></a>
-          </li>
-      {% else %}
-        <li class="pagination__item">
-          <span class="icon-left"></span>
-        </li>
-      {% endif %}
-      {% for iter_page in page.paginator.page_range %}
-        {% if page.number == iter_page %}
-        <li class="pagination__item pagination__item_active"><a class="pagination__link link">{{ iter_page }}</a></li>
-        {% else %}
-          <li class="page-item">
-            <a class="pagination__link link" href="?page={{ iter_page }}">{{ iter_page }}</a>
-          </li>
-        {% endif %}
-      {% endfor %}
-      {% if page.has_next %}
-        <li class="pagination__item">
-            <a class="pagination__link link" href="?page={{ page.next_page_number }}"><span class="icon-right"></span></a>
-        </li>
-      {% else %}
-        <li class="pagination__item">
-            <span class="icon-right"></span>
-        </li>
-      {% endif %}
-    </ul>
-  </nav>
+        <ul class="pagination__container">
+          {% if page.has_previous %}
+              <li class="page-item">
+                <a class="pagination__link link" href="?page={{ page.previous_page_number }}{{ all_tags|tags_filter }}">
+                    <span class="icon-left"></span>
+                </a>
+              </li>
+          {% else %}
+            <li class="pagination__item">
+              <a class="pagination__link link" href="#">
+               <span class="icon-left"></span>
+              </a>
+            </li>
+          {% endif %}
+          {% for iter_page in page.paginator.page_range %}
+            {% if page.number == iter_page %}
+            <li class="pagination__item pagination__item_active">
+                <a class="pagination__link link" href="?page={{ iter_page }}">{{ iter_page }}</a>
+            </li>
+            {% else %}
+              <li class="page-item">
+                <a class="pagination__link link" href="?page={{ iter_page }}{{ all_tags|tags_filter }}">&ensp;{{ iter_page }} </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if page.has_next %}
+            <li class="pagination__item">
+                <a class="pagination__link link" href="?page={{ page.next_page_number }}{{ all_tags|tags_filter }}">
+                    <span class="icon-right"></span>
+                </a>
+            </li>
+          {% else %}
+            <li class="pagination__item">
+              <a class="pagination__link link" href="#">
+                <span class="icon-right"></span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+  </ul>
 {% endif %}
