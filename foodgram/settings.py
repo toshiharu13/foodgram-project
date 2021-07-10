@@ -135,16 +135,16 @@ SITE_ID = 1
 TAGS = ['breakfast', 'lunch', 'dinner']
 POSTS_COUNT = 6
 
-#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = os.getenv('LOGIN')
 EMAIL_HOST_PASSWORD = os.getenv('PASS')
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-#SERVER_EMAIL = EMAIL_HOST_USER
-#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# SERVER_EMAIL = EMAIL_HOST_USER
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
