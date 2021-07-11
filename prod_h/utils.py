@@ -70,7 +70,10 @@ def download_pdf(data):
 
 def check(request, form):
     tags = False
+    ingrid = False
     for key, value in request.POST.items():
+        if 'nameIngredient_1' in key:
+            ingrid = True
         if 'valueIngredient' in key:
             if value:
                 amount = value
@@ -81,3 +84,5 @@ def check(request, form):
             tags = True
     if not tags:
         form.add_error(None, "Необходимо выбрать тип приёма пищи!")
+    if not ingrid:
+        form.add_error(None, "Необходимо выбрать минимум один ингридиент!")
