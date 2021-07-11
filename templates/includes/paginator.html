@@ -23,7 +23,7 @@
             </li>
             {% else %}
               <li class="page-item">
-                <a class="pagination__link link" href="?page={{ iter_page }}{{ tags_in_page|tags_filter }}">&ensp;{{ iter_page }} </a>
+                <a class="pagination__link link" href="?page={{ iter_page }}{{ tags_in_page|tags_filter }}">&ensp;{{ iter_page }}&ensp; </a>
               </li>
             {% endif %}
           {% endfor %}
