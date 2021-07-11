@@ -34,8 +34,16 @@ def index(request):
 
 
 def authors_recipes(request, username):
+    tags = tags_filter(request)
     author = get_object_or_404(User, username=username)
-    user_recipe = author.recipes.all()
+    user_recipe = Recipe.objects.filter(
+        tags__name__in=tags,
+        author=author,
+    ).prefetch_related(
+        'tags'
+    ).select_related(
+        'author'
+    ).distinct()
     paginator = Paginator(user_recipe, POSTS_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
