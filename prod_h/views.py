@@ -29,6 +29,7 @@ def index(request):
         'page': page,
         'paginator': paginator,
         'all_tags': all_tags,
+        'tags_in_page': tags,
     }
     return render(request, 'indexNotAuth.html', context=context)
 
@@ -53,6 +54,7 @@ def authors_recipes(request, username):
         'paginator': paginator,
         'author': author,
         'all_tags': all_tags,
+        'tags_in_page': tags,
     }
     return render(request, 'authorRecipe.html', context=context)
 

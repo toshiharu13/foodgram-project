@@ -5,7 +5,7 @@
         <ul class="pagination__container">
           {% if page.has_previous %}
               <li class="page-item">
-                <a class="pagination__link link" href="?page={{ page.previous_page_number }}{{ all_tags|tags_filter }}">
+                <a class="pagination__link link" href="?page={{ page.previous_page_number }}{{ tags_in_page|tags_filter }}">
                     <span class="icon-left"></span>
                 </a>
               </li>
@@ -23,13 +23,13 @@
             </li>
             {% else %}
               <li class="page-item">
-                <a class="pagination__link link" href="?page={{ iter_page }}{{ all_tags|tags_filter }}">&ensp;{{ iter_page }} </a>
+                <a class="pagination__link link" href="?page={{ iter_page }}{{ tags_in_page|tags_filter }}">&ensp;{{ iter_page }} </a>
               </li>
             {% endif %}
           {% endfor %}
           {% if page.has_next %}
             <li class="pagination__item">
-                <a class="pagination__link link" href="?page={{ page.next_page_number }}{{ all_tags|tags_filter }}">
+                <a class="pagination__link link" href="?page={{ page.next_page_number }}{{ tags_in_page|tags_filter }}">
                     <span class="icon-right"></span>
                 </a>
             </li>
